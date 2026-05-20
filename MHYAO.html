@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah Jenkins | Professional Portfolio Presentation</title>
+    <!-- Tailwind CSS for modern design systems -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Premium Google Fonts: Playfair Display & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f7fa',
+                            100: '#eaeef4',
+                            200: '#d1dbe5',
+                            300: '#abbcd1',
+                            400: '#7d99b9',
+                            500: '#5c7ba1',
+                            600: '#486285',
+                            700: '#3b4f6d',
+                            800: '#1e293b', /* Slate 800 */
+                            900: '#0f172a', /* Slate 900 */
+                            accent: '#f59e0b', /* Warm Amber */
+                            emerald: '#0d9488', /* Premium Teal */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Smooth fade-in transitions for slides */
+        .slide {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: scale(0.98);
+            position: absolute;
+            inset: 0;
+        }
+        
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        /* Prevent body scroll to lock screen layout like PowerPoint */
+        body {
+            overflow: hidden;
+        }
+
+        /* Highlight animation for presenting active elements */
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(0.95); opacity: 0.5; }
+        }
+        .pulse-accent {
+            animation: pulse-ring 3s infinite ease-in-out;
+        }
+
+        /* Presenter Notes slide transition & workspace resizing classes */
+        .notes-drawer {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out, width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Transition for expanding and shrinking the viewport card */
+        #presentation-viewport-wrapper {
+            transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+    </style>
+</head>
+<body class="bg-[#090d16] text-slate-100 font-sans antialiased flex flex-col h-screen select-none">
+
+    <!-- Presentation Header Control Bar -->
+    <header class="w-full bg-brand-900/90 border-b border-brand-800/80 px-6 py-4 flex items-center justify-between z-40">
+        <div class="flex items-center space-x-3">
+            <!-- Premium SVG School Book Monogram Logo -->
+            <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-emerald to-brand-accent p-0.5 shadow-md shadow-brand-emerald/10">
+                <div class="w-full h-full bg-[#090d16] rounded-[10px] flex items-center justify-center">
+                    <svg class="w-5 h-5 text-brand-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="leading-tight">
+                <span class="bg-brand-accent/20 border border-brand-accent/40 text-brand-accent text-[9px] px-1.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">
+                    Slide Show
+                </span>
+                <h1 class="font-serif text-base font-semibold tracking-wide mt-0.5">Sarah Jenkins <span class="text-slate-400 font-sans font-normal text-xs">| Educator Portfolio</span></h1>
+            </div>
+        </div>
+
+        <!-- Quick Access Utility Controls -->
+        <div class="flex items-center space-x-2 sm:space-x-4">
+            <!-- Autoplay Toggle -->
+            <button onclick="toggleAutoplay()" id="autoplay-btn" class="flex items-center space-x-2 bg-brand-800/80 hover:bg-brand-700 border border-brand-700/60 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" title="Toggle Slide Loop">
+                <i class="fa-solid fa-play text-brand-accent" id="autoplay-icon"></i>
+                <span id="autoplay-text">Auto Play</span>
+            </button>
+            
+            <!-- Presenter Notes Toggle -->
+            <button onclick="toggleNotes()" id="notes-toggle-btn" class="flex items-center space-x-2 bg-brand-800/80 hover:bg-brand-700 border border-brand-700/60 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" title="View Presenter Notes">
+                <i class="fa-solid fa-note-sticky text-teal-400"></i>
+                <span>Presenter Notes</span>
+            </button>
+
+            <!-- Fullscreen trigger -->
+            <button onclick="toggleFullscreen()" class="text-slate-400 hover:text-white transition-colors p-2" title="Toggle Fullscreen">
+                <i class="fa-solid fa-expand text-sm"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Interactive Workspace -->
+    <div class="flex-1 flex overflow-hidden relative">
+        
+        <!-- Presentation Slide Canvas Area -->
+        <div class="flex-1 flex items-center justify-center p-4 md:p-8 bg-gradient-to-br from-[#0b101d] to-[#04060b] relative">
+            
+            <!-- 16:9 Presentation Slide Container Card (Wraps the viewport card inside a dynamic max-width selector) -->
+            <div id="presentation-viewport-wrapper" class="w-full max-w-6xl aspect-[16/9] bg-brand-900 rounded-2xl border border-brand-800 shadow-2xl overflow-hidden relative flex flex-col justify-between" id="presentation-viewport">
+                
+                <!-- Linear Dynamic Progress Bar -->
+                <div class="w-full h-1 bg-brand-800 absolute top-0 left-0 z-50">
+                    <div class="h-full bg-gradient-to-r from-brand-accent to-brand-emerald transition-all duration-500" style="width: 14.28%" id="slide-progress-bar"></div>
+                </div>
+
+                <!-- SLIDE VIEWPORT INNER CONTENT -->
+                <div class="flex-1 relative overflow-hidden">
+
+                    <!-- SLIDE 1: Welcome & Landing Title -->
+                    <div class="slide active p-8 md:p-12 flex flex-col justify-between" id="slide-0">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-school mr-1.5"></i>Slide 01 // Introduction</span>
+                            <span class="text-xs text-slate-400">AP Literature Seminar</span>
+                        </div>
+                        
+                        <div class="my-auto max-w-3xl space-y-4">
+                            <h2 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight">
+                                Inspiring Minds Through <span class="text-brand-accent italic">Critical Analysis</span> & Literary Depth.
+                            </h2>
+                            <p class="text-slate-300 text-sm md:text-base lg:text-lg font-light leading-relaxed max-w-2xl">
+                                Welcome to my teaching portfolio deck. This presentation walks through my academic philosophy, curriculum credentials, and custom classroom layout designed for high school success.
+                            </p>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-brand-800/80 pt-4">
+                            <div>
+                                <h3 class="font-serif font-bold text-sm text-white">Sarah Jenkins, M.Ed.</h3>
+                                <p class="text-xs text-slate-400">Literature Educator & Mentor</p>
+                            </div>
+                            <div class="flex space-x-4 text-xs text-slate-400">
+                                <span><i class="fa-solid fa-map-pin text-brand-accent mr-1"></i>Oak Ridge Academy</span>
+                                <span><i class="fa-regular fa-calendar text-brand-emerald mr-1"></i>Academic Portfolio</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 2: About Me & Teaching Philosophy -->
+                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-1">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-id-badge mr-1.5"></i>Slide 02 // Educator Story</span>
+                            <span class="text-xs text-slate-400">Philosophy & Drive</span>
+                        </div>
+
+                        <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                            <div class="md:col-span-4 flex justify-center">
+                                <div class="w-36 h-36 md:w-44 md:h-44 rounded-full bg-brand-800 border-2 border-brand-accent/50 flex flex-col items-center justify-center relative shadow-lg">
+                                    <i class="fa-solid fa-user-graduate text-5xl text-brand-accent mb-2"></i>
+                                    <span class="text-xs font-mono text-slate-300">8 Years Exp.</span>
+                                </div>
+                            </div>
+                            <div class="md:col-span-8 space-y-4">
+                                <h2 class="font-serif text-2xl md:text-3xl font-bold text-white">An Analytical and Supportive Classroom Approach</h2>
+                                <p class="text-xs md:text-sm text-slate-300 font-light leading-relaxed">
+                                    I believe a modern literature classroom must build critical reasoning, not just memory. By creating customized curricula, my classroom pairs classical prose with contemporary digital analytics, making literature highly relevant to today's creative scholars.
+                                </p>
+                                <div class="grid grid-cols-2 gap-4 pt-2">
+                                    <div class="bg-brand-800/40 p-3 rounded-xl border border-brand-800">
+                                        <h4 class="text-xs font-bold text-brand-accent uppercase mb-1">Inclusivity First</h4>
+                                        <p class="text-[11px] text-slate-400">Respecting diverse perspectives in narrative analysis.</p>
+                                    </div>
+                                    <div class="bg-brand-800/40 p-3 rounded-xl border border-brand-800">
+                                        <h4 class="text-xs font-bold text-brand-emerald uppercase mb-1">Rigorous Rhetoric</h4>
+                                        <p class="text-[11px] text-slate-400">Polishing critical, argumentative essay mechanics.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-brand-800/80 pt-4 flex justify-between items-center text-xs text-slate-400">
+                            <span>"To write clearly is to think clearly."</span>
+                            <span>Sarah Jenkins</span>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 3: Credentials & Milestone Credentials -->
+                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-2">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-award mr-1.5"></i>Slide 03 // Qualifications</span>
+                            <span class="text-xs text-slate-400">Academic History</span>
+                        </div>
+
+                        <div class="my-auto space-y-4">
+                            <h2 class="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-center text-white mb-1">Educational Journey & Core Metrics</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <!-- Mile 1 -->
+                                <div class="bg-brand-800/50 p-4 rounded-xl border border-brand-700/50 relative overflow-hidden">
+                                    <span class="absolute top-2 right-3 text-2xl text-brand-accent opacity-10"><i class="fa-solid fa-graduation-cap"></i></span>
+                                    <span class="text-[10px] font-mono font-bold text-brand-accent tracking-widest block mb-1">M.ED. DEGREE</span>
+                                    <h3 class="text-xs font-bold text-white mb-1">Secondary English Curriculum</h3>
+                                    <p class="text-[11px] text-slate-400">Boston University // Year 2018</p>
+                                    <p class="text-[11px] text-slate-300 mt-2 font-light">Specialized in adolescent literacy drive research.</p>
+                                </div>
+                                <!-- Mile 2 -->
+                                <div class="bg-brand-800/50 p-4 rounded-xl border border-brand-700/50 relative overflow-hidden">
+                                    <span class="absolute top-2 right-3 text-2xl text-brand-emerald opacity-10"><i class="fa-solid fa-book"></i></span>
+                                    <span class="text-[10px] font-mono font-bold text-brand-emerald tracking-widest block mb-1">B.A. DEGREE</span>
+                                    <h3 class="text-xs font-bold text-white mb-1">English Literature & Rhetoric</h3>
+                                    <p class="text-[11px] text-slate-400">Williams College // Year 2015</p>
+                                    <p class="text-[11px] text-slate-300 mt-2 font-light">Graduated Magna ***** Laude with honors portfolio.</p>
+                                </div>
+                                <!-- Mile 3 -->
+                                <div class="bg-brand-800/50 p-4 rounded-xl border border-brand-700/50 relative overflow-hidden">
+                                    <span class="absolute top-2 right-3 text-2xl text-indigo-400 opacity-10"><i class="fa-solid fa-shield-halved"></i></span>
+                                    <span class="text-[10px] font-mono font-bold text-indigo-400 tracking-widest block mb-1">BOARD CERTIFIED</span>
+                                    <h3 class="text-xs font-bold text-white mb-1">AP Literature & Language</h3>
+                                    <p class="text-[11px] text-slate-400">College Board // Year 2021</p>
+                                    <p class="text-[11px] text-slate-300 mt-2 font-light">Official authorization to lecture Advanced Placement curriculum.</p>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-2 pt-2 text-center bg-brand-950/40 p-2 rounded-xl border border-brand-800/50">
+                                <div>
+                                    <span class="block text-base md:text-xl font-bold text-brand-accent">95%</span>
+                                    <span class="block text-[8px] text-slate-400 uppercase tracking-widest">AP Passing Rate</span>
+                                </div>
+                                <div>
+                                    <span class="block text-base md:text-xl font-bold text-white">1,200+</span>
+                                    <span class="block text-[8px] text-slate-400 uppercase tracking-widest">Students Educated</span>
+                                </div>
+                                <div>
+                                    <span class="block text-base md:text-xl font-bold text-brand-emerald">3x</span>
+                                    <span class="block text-[8px] text-slate-400 uppercase tracking-widest">Outstanding Teacher Nominee</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-brand-800/80 pt-3 flex justify-between items-center text-xs text-slate-400">
+                            <span>"Dedicated to elevating standards of excellence."</span>
+                            <span>Sarah Jenkins</span>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 4: What to Expect & Curriculum Guidelines -->
+                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-3">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-list-check mr-1.5"></i>Slide 04 // What to Expect</span>
+                            <span class="text-xs text-slate-400">Classroom Framework</span>
+                        </div>
+
+                        <div class="my-auto space-y-4">
+                            <h2 class="font-serif text-2xl md:text-3xl font-bold text-white text-center mb-1">Transparent Curricular Guidelines</h2>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <!-- Card 1 -->
+                                <div class="bg-brand-800/30 p-4 rounded-xl border-t-2 border-brand-accent border-x border-b border-brand-800">
+                                    <div class="flex items-center space-x-2.5 mb-2">
+                                        <div class="w-8 h-8 rounded bg-brand-accent/20 flex items-center justify-center text-brand-accent">
+                                            <i class="fa-solid fa-route"></i>
+                                        </div>
+                                        <h3 class="font-serif text-sm md:text-base font-bold text-white">Weekly Roadmaps</h3>
+                                    </div>
+                                    <p class="text-xs text-slate-300 leading-relaxed font-light">
+                                        Every Friday afternoon, a comprehensive syllabus details readings, focus prompts, and upcoming deadlines, ensuring absolute structure.
+                                    </p>
+                                </div>
+                                <!-- Card 2 -->
+                                <div class="bg-brand-800/30 p-4 rounded-xl border-t-2 border-brand-emerald border-x border-b border-brand-800">
+                                    <div class="flex items-center space-x-2.5 mb-2">
+                                        <div class="w-8 h-8 rounded bg-brand-emerald/20 flex items-center justify-center text-brand-emerald">
+                                            <i class="fa-solid fa-users"></i>
+                                        </div>
+                                        <h3 class="font-serif text-sm md:text-base font-bold text-white">Socratic Seminars</h3>
+                                    </div>
+                                    <p class="text-xs text-slate-300 leading-relaxed font-light">
+                                        Bi-weekly dialogue assemblies allow students to build constructive interpretive defenses, developing team cooperation.
+                                    </p>
+                                </div>
+                                <!-- Card 3 -->
+                                <div class="bg-brand-800/30 p-4 rounded-xl border-t-2 border-indigo-500 border-x border-b border-brand-800">
+                                    <div class="flex items-center space-x-2.5 mb-2">
+                                        <div class="w-8 h-8 rounded bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+                                            <i class="fa-solid fa-video"></i>
+                                        </div>
+                                        <h3 class="font-serif text-sm md:text-base font-bold text-white">Video Feedback</h3>
+                                    </div>
+                                    <p class="text-xs text-slate-300 leading-relaxed font-light">
+                                        Major argumentative assignments receive short, personalized screen-recorded voice-overs highlighting spelling and styling.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-brand-800/80 pt-4 flex justify-between items-center text-xs text-slate-400">
+                            <span>"Constructive frameworks foster outstanding outputs."</span>
+                            <span>Sarah Jenkins</span>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 5: Classroom in Action (Video Slide) -->
+                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-4">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-video mr-1.5"></i>Slide 05 // Classroom Sample</span>
+                            <span class="text-xs text-slate-400">Literary Insights</span>
+                        </div>
+
+                        <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                            <div class="md:col-span-5 space-y-4">
+                                <h2 class="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-white">Classroom in Action</h2>
+                                <p class="text-[11px] md:text-xs lg:text-sm text-slate-300 leading-relaxed font-light">
+                                    Watch a sample lecture prompt exploring the timeless relevance of Shakespearean classics. I use high-impact visual summaries from educators worldwide to construct modern introductory hooks for high school scholars.
+                                </p>
+                                <div class="bg-brand-800/40 p-3 rounded-lg border border-brand-800/80 text-[10px] text-slate-400 space-y-1">
+                                    <span class="block font-bold text-brand-accent uppercase"><i class="fa-regular fa-lightbulb mr-1"></i>Curriculum Connection:</span>
+                                    <p>Integrating multi-modal videos engages diverse learning styles and ensures deeper analytical comprehension of complex source plays.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="md:col-span-7">
+                                <!-- Video Container Element (16:9 Aspect Ratio) -->
+                                <div class="w-full aspect-video bg-black rounded-xl overflow-hidden border border-brand-700/50 shadow-xl relative">
+                                    <iframe 
+                                        class="w-full h-full"
+                                        src="https://www.youtube.com/embed/QTu39aMg_mU?si=tX6Vz3vI4VfGg_F9" 
+                                        title="Why should you read Hamlet? - TED-Ed" 
+                                        frameborder="0" 
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-brand-800/80 pt-3 flex justify-between items-center text-xs text-slate-400">
+                            <span>"Synthesizing traditional texts and modern digital arts."</span>
+                            <span>Sarah Jenkins</span>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 6: Student Works & Exhibitions (10 Image Gallery Slide) -->
+                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-5">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-images mr-1.5"></i>Slide 06 // Gallery & Works</span>
+                            <span class="text-xs text-slate-400">Student Showcase</span>
+                        </div>
+
+                        <!-- Gallery Content Layout -->
+                        <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                            <!-- Left Info and Gallery Details -->
+                            <div class="md:col-span-5 space-y-3">
+                                <h2 class="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-white">Student Work Exhibition</h2>
+                                <p class="text-[11px] md:text-xs lg:text-sm text-slate-300 leading-relaxed font-light">
+                                    A direct window into the academic rigor, research catalogs, creative designs, and group projects created within our AP Literature sections. Use the arrow guides to slide through our 10 primary catalog items.
+                                </p>
+                                <div class="bg-brand-emerald/10 p-3 rounded-lg border border-brand-emerald/20 flex items-start space-x-2.5">
+                                    <i class="fa-solid fa-circle-info text-brand-emerald mt-0.5 text-xs"></i>
+                                    <p class="text-[10px] lg:text-[11px] text-slate-300" id="gallery-current-description">
+                                        Exhibit 1: Loading description...
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Right Side Interactive Gallery Carousel -->
+                            <div class="md:col-span-7">
+                                <div class="relative w-full aspect-[4/3] bg-brand-950/80 rounded-xl overflow-hidden border border-brand-800 shadow-xl flex flex-col justify-between p-3">
+                                    
+                                    <!-- Image Display Window with Overlay Info -->
+                                    <div class="relative flex-1 w-full rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center">
+                                        <!-- Fallback Graphic/Image with onerror handling -->
+                                        <img id="gallery-image-element" src="https://placehold.co/600x450/1e293b/0d9488?text=Exhibit+1" onerror="this.src='https://placehold.co/600x450/111827/ffffff?text=Image+Not+Available'" class="w-full h-full object-cover transition-opacity duration-300" alt="Student Work">
+                                        
+                                        <!-- Visual Gradient Top Gradient overlay -->
+                                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
+                                            <span class="text-brand-accent text-[9px] font-mono font-bold tracking-widest uppercase" id="gallery-image-tag">CLASS EXHIBIT</span>
+                                            <h3 class="text-white font-serif text-sm font-semibold mt-0.5" id="gallery-image-title">Exhibit Slide Loading...</h3>
+                                        </div>
+                                    </div>
+
+                                    <!-- Gallery Controls and Counter -->
+                                    <div class="flex items-center justify-between pt-3 text-xs">
+                                        <!-- Carousel Left Control -->
+                                        <button onclick="navigateGallery(-1)" class="w-8 h-8 rounded-lg bg-brand-800 hover:bg-brand-700 hover:text-white flex items-center justify-center transition-colors shadow">
+                                            <i class="fa-solid fa-chevron-left"></i>
+                                        </button>
+                                        
+                                        <!-- Counter Indicators -->
+                                        <div class="flex items-center space-x-3">
+                                            <span class="text-slate-400 text-xs font-mono font-semibold" id="gallery-counter">1 / 10</span>
+                                            <div class="flex items-center space-x-1" id="gallery-indicator-dots">
+                                                <!-- Javascript will dynamically inject the dot elements here -->
+                                            </div>
+                                        </div>
+
+                                        <!-- Carousel Right Control -->
+                                        <button onclick="navigateGallery(1)" class="w-8 h-8 rounded-lg bg-brand-800 hover:bg-brand-700 hover:text-white flex items-center justify-center transition-colors shadow">
+                                            <i class="fa-solid fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-brand-800/80 pt-3 flex justify-between items-center text-xs text-slate-400">
+                            <span>"Empowering original academic exploration."</span>
+                            <span>Sarah Jenkins</span>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 7: Direct Contact Form (Connected to Formspree) -->
+                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-6">
+                        <div class="flex justify-between items-start">
+                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-regular fa-paper-plane mr-1.5"></i>Slide 07 // Contact Info</span>
+                            <span class="text-xs text-slate-400">Stay In Touch</span>
+                        </div>
+
+                        <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                            <!-- Left Details Block -->
+                            <div class="md:col-span-5 space-y-4">
+                                <h2 class="font-serif text-2xl md:text-3xl font-bold text-white">Let's Connect Directly</h2>
+                                <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-light">
+                                    Whether you are a student preparing for AP literature exams, a parent wishing to sync on milestones, or an academic administrator hoping to plan collaborative panels, I look forward to conversing.
+                                </p>
+                                
+                                <div class="space-y-2.5 pt-2">
+                                    <!-- Email Details -->
+                                    <div class="flex items-center space-x-3 text-slate-300 text-xs">
+                                        <div class="w-8 h-8 rounded bg-brand-800 flex items-center justify-center text-brand-accent">
+                                            <i class="fa-solid fa-envelope"></i>
+                                        </div>
+                                        <div>
+                                            <span class="block text-[9px] text-slate-400 uppercase font-semibold">Primary Address</span>
+                                            <span class="font-medium">sjenkins@oakridgeacademy.org</span>
+                                        </div>
+                                    </div>
+                                    <!-- Phone Details -->
+                                    <div class="flex items-center space-x-3 text-slate-300 text-xs">
+                                        <div class="w-8 h-8 rounded bg-brand-800 flex items-center justify-center text-brand-emerald">
+                                            <i class="fa-solid fa-phone"></i>
+                                        </div>
+                                        <div>
+                                            <span class="block text-[9px] text-slate-400 uppercase font-semibold">Campus Extension</span>
+                                            <span class="font-medium">(555) 439-0192 ex. 302</span>
+                                        </div>
+                                    </div>
+                                    <!-- Pink-styled Instagram Details -->
+                                    <div class="flex items-center space-x-3 text-slate-300 text-xs">
+                                        <div class="w-8 h-8 rounded bg-brand-800 flex items-center justify-center text-pink-500">
+                                            <i class="fa-brands fa-instagram text-sm"></i>
+                                        </div>
+                                        <div>
+                                            <span class="block text-[9px] text-slate-400 uppercase font-semibold">Instagram</span>
+                                            <span class="font-medium text-pink-400 hover:underline cursor-pointer">@sjenkins.lit.seminar</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Form Block (Active Formspree) -->
+                            <div class="md:col-span-7">
+                                <div class="bg-brand-800/30 p-5 rounded-xl border border-brand-850 shadow-lg relative overflow-hidden">
+                                    
+                                    <!-- Formspree success toast cover -->
+                                    <div id="form-success-overlay" class="hidden absolute inset-0 bg-brand-900/95 z-20 flex flex-col items-center justify-center text-center p-6 transition-all duration-300">
+                                        <div class="w-12 h-12 rounded-full bg-brand-emerald/20 flex items-center justify-center text-brand-emerald text-2xl mb-3 animate-bounce">
+                                            <i class="fa-solid fa-check"></i>
+                                        </div>
+                                        <h3 class="font-serif text-lg font-bold text-white mb-1">Message Sent Successfully!</h3>
+                                        <p class="text-xs text-slate-400 max-w-xs mb-4">
+                                            Your email was sent via Formspree to Sarah's Gmail. Expect a detailed response within 24 business hours.
+                                        </p>
+                                        <button onclick="resetContactForm()" class="text-[11px] text-brand-accent font-semibold hover:underline">
+                                            Send another inquiry
+                                        </button>
+                                    </div>
+
+                                    <!-- Formspree error toast cover -->
+                                    <div id="form-error-overlay" class="hidden absolute inset-0 bg-brand-900/95 z-20 flex flex-col items-center justify-center text-center p-6 transition-all duration-300">
+                                        <div class="w-12 h-12 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 text-2xl mb-3">
+                                            <i class="fa-solid fa-triangle-exclamation"></i>
+                                        </div>
+                                        <h3 class="font-serif text-lg font-bold text-white mb-1">Could Not Dispatch Message</h3>
+                                        <p id="error-overlay-message" class="text-xs text-slate-400 max-w-xs mb-4">
+                                            There was a connection issue with Formspree. Please check your network and try again.
+                                        </p>
+                                        <button onclick="closeErrorOverlay()" class="text-[11px] text-brand-accent font-semibold hover:underline">
+                                            Go Back and Fix
+                                        </button>
+                                    </div>
+
+                                    <!-- Main Contact Form -->
+                                    <form id="presentation-contact-form" onsubmit="submitFormspree(event)" class="space-y-3">
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <div class="space-y-1">
+                                                <label for="contact-name" class="block text-[10px] font-semibold text-slate-400">Name</label>
+                                                <input type="text" name="name" id="contact-name" required placeholder="Eleanor Vance" class="w-full bg-brand-900 border border-brand-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent">
+                                            </div>
+                                            <div class="space-y-1">
+                                                <label for="contact-email" class="block text-[10px] font-semibold text-slate-400">Email</label>
+                                                <input type="email" name="_replyto" id="contact-email" required placeholder="eleanor@mail.com" class="w-full bg-brand-900 border border-brand-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent">
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label for="contact-role" class="block text-[10px] font-semibold text-slate-400">Who Are You?</label>
+                                            <select name="role" id="contact-role" class="w-full bg-brand-900 border border-brand-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
+                                                <option value="parent">Parent of active Student</option>
+                                                <option value="student">Oak Ridge Academy Student</option>
+                                                <option value="administrator">Academic Admin/Educator</option>
+                                                <option value="other">Other Inquiry</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <label for="contact-msg" class="block text-[10px] font-semibold text-slate-400">Message Inquiry</label>
+                                            <textarea name="message" id="contact-msg" rows="3" required placeholder="I wanted to reach out regarding the AP test..." class="w-full bg-brand-900 border border-brand-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent resize-none"></textarea>
+                                        </div>
+                                        <button type="submit" class="w-full bg-gradient-to-r from-brand-accent to-amber-600 text-white font-bold text-xs py-2 px-4 rounded-lg shadow-md hover:brightness-110 active:scale-[0.98] transition-all">
+                                            Dispatch Formspree Message
+                                        </button>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-brand-800/80 pt-3 flex justify-between items-center text-xs text-slate-400">
+                            <span>"Constructing avenues for open educational dialogue."</span>
+                            <span>Sarah Jenkins</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PRESENTATION VIEWPORT FOOTER NAV BAR -->
+                <footer class="w-full bg-brand-950/80 border-t border-brand-800/60 py-3.5 px-6 flex items-center justify-between z-30">
+                    <button onclick="navigateSlide(-1)" class="text-xs font-semibold text-slate-400 hover:text-white transition-colors flex items-center space-x-1.5 px-3 py-1 bg-brand-900 hover:bg-brand-800 rounded-lg border border-brand-800">
+                        <i class="fa-solid fa-arrow-left"></i> <span>Prev</span>
+                    </button>
+                    
+                    <!-- Dynamic Slide Dot Markers -->
+                    <div class="flex items-center space-x-2" id="slide-indicators-container">
+                        <!-- Instantiated dynamically via JS -->
+                    </div>
+
+                    <button onclick="navigateSlide(1)" class="text-xs font-semibold text-slate-400 hover:text-white transition-colors flex items-center space-x-1.5 px-3 py-1 bg-brand-900 hover:bg-brand-800 rounded-lg border border-brand-800">
+                        <span>Next</span> <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </footer>
+
+            </div>
+        </div>
+
+        <!-- Sliding Presenter Notes Drawer (Right-Sidebar Alignment) -->
+        <aside id="notes-drawer" class="notes-drawer w-0 opacity-0 overflow-hidden bg-brand-900/95 border-l border-brand-800 h-full flex flex-col justify-between z-40 relative shadow-2xl">
+            <!-- Header bar inside Notes Sidebar -->
+            <div class="p-5 border-b border-brand-800/80 flex justify-between items-center bg-[#0d1321]">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-solid fa-note-sticky text-teal-400"></i>
+                    <h3 class="font-serif font-bold text-white tracking-wide text-sm">Active Presenter Notes</h3>
+                </div>
+                <button onclick="toggleNotes()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-brand-800 transition-colors">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <!-- Notes Body Area (Refreshed programmatically on navigation) -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="presenter-notes-body">
+                <!-- Injected dynamically based on slide ID -->
+            </div>
+
+            <!-- Footer Details inside Notes Sidebar -->
+            <div class="p-4 bg-[#0d1321] border-t border-brand-800/80 text-[10px] text-slate-400 flex items-center justify-between">
+                <span>Presenter View Enabled</span>
+                <span id="notes-slide-tracker">Slide 1 of 7</span>
+            </div>
+        </aside>
+
+    </div>
+
+    <script>
+        // Presentation Variables & State Trackers
+        let currentSlideIndex = 0;
+        const totalSlides = 7;
+        let isAutoplayActive = false;
+        let autoplayInterval = null;
+        let isNotesDrawerOpen = false;
+
+        // =======================================================================
+        // ★ FORMSPREE CONFIGURATION ★
+        // Formspree API Key Configured
+        // =======================================================================
+        const FORMSPREE_ID = "meedolpv"; 
+
+        // Native Synthesizer Audio Utility Configuration (No External Audio Files Needed)
+        function playChimeEffect(frequency = 440, type = "sine", duration = 0.15) {
+            try {
+                const AudioCtx = window.AudioContext || window.webkitAudioContext;
+                if (!AudioCtx) return;
+                const ctx = new AudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                osc.type = type;
+                osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+                
+                // Set smooth visual sound decay
+                gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                
+                osc.start();
+                osc.stop(ctx.currentTime + duration);
+            } catch (e) {
+                console.log("Audio node blocked by browser accessibility guidelines.");
+            }
+        }
+
+        // Complete Repository of Dynamic Presenter Notes (One block per slide index)
+        const presenterNotesDatabase = [
+            `
+            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 01: Welcome Introduction</h4>
+            <h3 class="text-white font-serif text-base font-bold mb-2">Introduction & Warm Welcome</h3>
+            <p class="text-xs text-slate-300 leading-relaxed space-y-2">
+                • <strong>Core Objective:</strong> Introduce Sarah Jenkins' teaching persona. Show expertise, credibility, and classroom theme immediately. <br><br>
+                • <strong>Key Points to Mention:</strong> Walk through Oak Ridge Academy literature pathways, AP expectations, and focus on student analytical drive. <br><br>
+                • <strong>Presenter Cue:</strong> Maintain an engaging and structured posture. Start with a brief icebreaker summarizing adolescent rhetoric.
+            </p>
+            `,
+            `
+            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 02: Educator Story</h4>
+            <h3 class="text-white font-serif text-base font-bold mb-2">My Teaching Philosophy</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                • <strong>Core Objective:</strong> Define the "Analytical & Supportive" pedagogy. Emphasize digital resources supporting classic works. <br><br>
+                • <strong>Inclusivity Point:</strong> Explain how diverse analytical viewpoints validate complex text interpretation. <br><br>
+                • <strong>Rhetoric Practice:</strong> Talk about the active writing workshops held to prepare students for college-level argument formulations.
+            </p>
+            `,
+            `
+            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 03: Credentials & History</h4>
+            <h3 class="text-white font-serif text-base font-bold mb-2">Milestones & Core Metrics</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                • <strong>Boston & Williams Highlights:</strong> Mention specialized pedagogical research at BU and Magna ***** Laude focus in English Literature. <br><br>
+                • <strong>95% Passing Metric:</strong> Highly emphasize this score! It represents performance consistency that matches College Board rubrics. <br><br>
+                • <strong>Classroom Count:</strong> Speak about the value of managing larger cohorts without sacrificing personalized essay evaluations.
+            </p>
+            `,
+            `
+            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 04: Curricular Guidelines</h4>
+            <h3 class="text-white font-serif text-base font-bold mb-2">Weekly Operational Flow</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                • <strong>Friday Roadmaps:</strong> Ensure parents recognize that assignments are given out with absolute transparency to avoid weekend confusion. <br><br>
+                • <strong>Socratic Seminars:</strong> Talk about how these cultivate critical peer listening skills. Note that student feedback informs classroom grading scales. <br><br>
+                • <strong>Screencasts:</strong> Mention that personalized screencasts drastically increase student engagement and speed up structural corrections.
+            </p>
+            `,
+            `
+            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 05: Video Lecture Sample</h4>
+            <h3 class="text-white font-serif text-base font-bold mb-2">Hamlet & Core Engagement</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                • <strong>Video Context:</strong> Demonstrate multi-modal learning using the TED-Ed Hamlet video. Note that videos serve as high-impact visual summaries before parsing complex old English scenes. <br><br>
+                • <strong>Technological Literacy:</strong> Talk about combining online resources, classical books, and text analysis programs like Google Ngram in weekly tasks.
+            </p>
+            `,
+            `
+            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 06: Student Work Showcase</h4>
+            <h3 class="text-white font-serif text-base font-bold mb-2">10-Image Exhibition Catalog</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                • <strong>Core Showcase Objective:</strong> This gallery proves that students do more than memorize text; they engage in hands-on creative mapping. <br><br>
+                • <strong>Key Exhibits:</strong> Discuss the visual layout examples, Socratic logs, annotated files, student study sheets, and Shakespeare cover boards. <br><br>
+                • <strong>Takeaway:</strong> These physical portfolios serve as evidence of the rigor and creativity demanded by our AP literature curriculum.
+            </p>
+            `,
+            `
+            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 07: Direct Contact Form</h4>
+            <h3 class="text-white font-serif text-base font-bold mb-2">Formspree Integration & Outreach</h3>
+            <p class="text-xs text-slate-300 leading-relaxed">
+                • <strong>Connecting Details:</strong> Walk through our official email address, phone extensions, and Instagram account. <br><br>
+                • <strong>Instagram Handle:</strong> Highlight @sjenkins.lit.seminar as a hub for student reading goals and study infographics. <br><br>
+                • <strong>Form Details:</strong> Demonstrate the form dispatch overlay. Emphasize that responses are typically sent out within 24 hours.
+            </p>
+            `
+        ];
+
+        // Data block for 10-picture student work catalog carousel
+        const galleryDatabase = [
+            {
+                tag: "EXHIBIT 01 // STUDY LOGS",
+                title: "Annotated Hamlet Study Folders",
+                desc: "High school students highlight specific thematic arcs in Shakespeare text, demonstrating outstanding original critical commentary in margin details.",
+                img: "https://placehold.co/600x450/0d1321/0d9488?text=Annotated+Hamlet+Folders"
+            },
+            {
+                tag: "EXHIBIT 02 // PRESENTATION ARCS",
+                title: "Weekly Socratic Debate Outlines",
+                desc: "Visual cards detailing rhetoric methods, structural counterarguments, and textual evidence prepared for Friday argumentative workshops.",
+                img: "https://placehold.co/600x450/0f172a/f59e0b?text=Socratic+Debate+Outlines"
+            },
+            {
+                tag: "EXHIBIT 03 // VISUAL GRAPHICS",
+                title: "Character Perspective Mapping Boards",
+                desc: "Students design colored flow charts tracing character relationships and internal motivations in modern classical plays.",
+                img: "https://placehold.co/600x450/1e293b/6366f1?text=Perspective+Mapping+Boards"
+            },
+            {
+                tag: "EXHIBIT 04 // STUDENT REPRINTS",
+                title: "Self-Published Literature Journals",
+                desc: "A compiled physical anthology showcasing poetry, descriptive essays, and analytical feedback curated by active English scholars.",
+                img: "https://placehold.co/600x450/0d1321/ec4899?text=Student+Literature+Journals"
+            },
+            {
+                tag: "EXHIBIT 05 // DIGITAL PORTFOLIOS",
+                title: "Interactive Storytelling Blogs",
+                desc: "Original student web mockups containing chapter summaries, narrative analysis, and creative contemporary rewrites.",
+                img: "https://placehold.co/600x450/0f172a/10b981?text=Digital+Story+Blogs"
+            },
+            {
+                tag: "EXHIBIT 06 // HISTORICAL ANALYSIS",
+                title: "Contextual World Timeline Posters",
+                desc: "Research timelines mapping historic moments like the Enlightenment directly alongside relevant literature movements.",
+                img: "https://placehold.co/600x450/1e293b/f59e0b?text=Contextual+Timeline+Posters"
+            },
+            {
+                tag: "EXHIBIT 07 // GROUP CONSTRUCTS",
+                title: "The Great Gatsby Presentation Displays",
+                desc: "Collaborative models depicting architectural symbology and wealth distributions across Fitzgerald's East Egg and West Egg.",
+                img: "https://placehold.co/600x450/0d1321/3b82f6?text=Gatsby+Symbology+Displays"
+            },
+            {
+                tag: "EXHIBIT 08 // CREATIVE PORTRAITURE",
+                title: "Classic Cover Art Renditions",
+                desc: "Contemporary, stylized cover design assignments analyzing modern motifs through visual graphic elements.",
+                img: "https://placehold.co/600x450/0f172a/a855f7?text=Classic+Cover+Art+Renditions"
+            },
+            {
+                tag: "EXHIBIT 09 // RESEARCH WORK",
+                title: "AP Argumentative Thesis Drafts",
+                desc: "Classroom essay sheets mapping complex thesis claims, literary evidence, and counterarguments under timed exam guidelines.",
+                img: "https://placehold.co/600x450/1e293b/0d9488?text=Argumentative+Thesis+Drafts"
+            },
+            {
+                tag: "EXHIBIT 10 // GROUP DEBATES",
+                title: "Socratic Assembly Discussion Circles",
+                desc: "Photos documenting high school literature seminars in a structured circle to discuss analytical insights and thesis points.",
+                img: "https://placehold.co/600x450/0d1321/f59e0b?text=Socratic+Assembly+Seminars"
+            }
+        ];
+
+        let currentGalleryIndex = 0;
+
+        // Initialize Dynamic Presentation Markers & Load Initial Slides
+        window.onload = function() {
+            instantiateNavigationDots();
+            instantiateGalleryDots();
+            renderSlide(0);
+            updateGalleryDisplay();
+        };
+
+        // Render Slide Indicators
+        function instantiateNavigationDots() {
+            const container = document.getElementById('slide-indicators-container');
+            container.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-brand-accent w-4' : 'bg-brand-800'}`;
+                dot.onclick = () => goToSlide(i);
+                dot.title = `Go to Slide ${i + 1}`;
+                container.appendChild(dot);
+            }
+        }
+
+        // Render Active Mini-Gallery Indicators
+        function instantiateGalleryDots() {
+            const container = document.getElementById('gallery-indicator-dots');
+            container.innerHTML = '';
+            galleryDatabase.forEach((img, index) => {
+                const dot = document.createElement('div');
+                dot.className = `w-1.5 h-1.5 rounded-full transition-all duration-300 ${index === 0 ? 'bg-brand-emerald w-3' : 'bg-brand-800'}`;
+                container.appendChild(dot);
+            });
+        }
+
+        // Render Slide & Presenter Notes Content
+        function renderSlide(index) {
+            // Update Active Indicators Class
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, idx) => {
+                if (idx === index) {
+                    slide.classList.add('active');
+                } else {
+                    slide.classList.remove('active');
+                }
+            });
+
+            // Update Progress Bar Percentage
+            const progressBar = document.getElementById('slide-progress-bar');
+            const percent = ((index + 1) / totalSlides) * 100;
+            progressBar.style.width = `${percent}%`;
+
+            // Update Bottom Dots
+            const indicators = document.getElementById('slide-indicators-container').children;
+            for (let i = 0; i < indicators.length; i++) {
+                if (i === index) {
+                    indicators[i].className = 'w-2 h-2 rounded-full transition-all duration-300 bg-brand-accent w-4';
+                } else {
+                    indicators[i].className = 'w-2 h-2 rounded-full transition-all duration-300 bg-brand-800';
+                }
+            }
+
+            // Sync Presenter Notes Text & Counter Trackers
+            document.getElementById('presenter-notes-body').innerHTML = presenterNotesDatabase[index];
+            document.getElementById('notes-slide-tracker').textContent = `Slide ${index + 1} of ${totalSlides}`;
+        }
+
+        // Core Slide Navigation
+        function navigateSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex < 0) {
+                currentSlideIndex = totalSlides - 1; // Slide wrap-around back to end
+            } else if (currentSlideIndex >= totalSlides) {
+                currentSlideIndex = 0; // Slide wrap-around to beginning
+            }
+            
+            // Audio Feedback Chime
+            playChimeEffect(440 + (currentSlideIndex * 40), "triangle", 0.15);
+            renderSlide(currentSlideIndex);
+        }
+
+        // Jump Directly to Specific Slide
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            playChimeEffect(520, "sine", 0.1);
+            renderSlide(currentSlideIndex);
+        }
+
+        // Handles automated slideshow loop logic with shortened 3-second cycle
+        function toggleAutoplay() {
+            isAutoplayActive = !isAutoplayActive;
+            const btn = document.getElementById('autoplay-btn');
+            const text = document.getElementById('autoplay-text');
+            const icon = document.getElementById('autoplay-icon');
+
+            if (isAutoplayActive) {
+                btn.className = "flex items-center space-x-2 bg-brand-emerald text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-md shadow-brand-emerald/20";
+                text.textContent = "Looping Active";
+                icon.className = "fa-solid fa-arrows-spin animate-spin";
+                
+                playChimeEffect(587.33, "sine", 0.2);
+                
+                autoplayInterval = setInterval(() => {
+                    navigateSlide(1);
+                }, 3000); // Transitions automatically every 3 seconds
+            } else {
+                btn.className = "flex items-center space-x-2 bg-brand-800/80 hover:bg-brand-700 border border-brand-700/60 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all";
+                text.textContent = "Auto Play";
+                icon.className = "fa-solid fa-play text-brand-accent";
+                
+                playChimeEffect(349.23, "sawtooth", 0.15);
+                clearInterval(autoplayInterval);
+            }
+        }
+
+        // Interactive Drawer Slide Animation Logic with Canvas Scaling
+        function toggleNotes() {
+            const drawer = document.getElementById('notes-drawer');
+            const toggleBtn = document.getElementById('notes-toggle-btn');
+            const viewportWrapper = document.getElementById('presentation-viewport-wrapper');
+            
+            isNotesDrawerOpen = !isNotesDrawerOpen;
+
+            if (isNotesDrawerOpen) {
+                // Apply visual state toggles for open sidebar
+                toggleBtn.className = "flex items-center space-x-2 bg-brand-accent text-[#090d16] border border-brand-accent px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-md shadow-brand-accent/20";
+                
+                // Sidebar open transitions
+                drawer.classList.remove('w-0', 'opacity-0');
+                drawer.classList.add('w-80', 'opacity-100');
+                
+                // Scale viewport wrapper card down to standard max-width configuration side-by-side
+                viewportWrapper.classList.remove('max-w-6xl');
+                viewportWrapper.classList.add('max-w-4xl');
+
+                playChimeEffect(783.99, "sine", 0.2);
+            } else {
+                // Remove visual state toggles
+                toggleBtn.className = "flex items-center space-x-2 bg-brand-800/80 hover:bg-brand-700 border border-brand-700/60 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all";
+                
+                // Sidebar close transitions
+                drawer.classList.remove('w-80', 'opacity-100');
+                drawer.classList.add('w-0', 'opacity-0');
+                
+                // Expand viewport wrapper card back out to presentation projection width
+                viewportWrapper.classList.remove('max-w-4xl');
+                viewportWrapper.classList.add('max-w-6xl');
+
+                playChimeEffect(659.25, "sine", 0.15);
+            }
+        }
+
+        // Multi-image gallery slideshow carousel controller
+        function navigateGallery(direction) {
+            currentGalleryIndex += direction;
+            if (currentGalleryIndex < 0) {
+                currentGalleryIndex = galleryDatabase.length - 1;
+            } else if (currentGalleryIndex >= galleryDatabase.length) {
+                currentGalleryIndex = 0;
+            }
+            
+            // Localized Gallery sound cue
+            playChimeEffect(330, "triangle", 0.08);
+            updateGalleryDisplay();
+        }
+
+        // Refresh and display active gallery image details
+        function updateGalleryDisplay() {
+            const currentItem = galleryDatabase[currentGalleryIndex];
+            const imgElement = document.getElementById('gallery-image-element');
+            const tagElement = document.getElementById('gallery-image-tag');
+            const titleElement = document.getElementById('gallery-image-title');
+            const descElement = document.getElementById('gallery-current-description');
+            const counterElement = document.getElementById('gallery-counter');
+
+            // Quick image fade transition
+            imgElement.style.opacity = 0.3;
+            
+            setTimeout(() => {
+                imgElement.src = currentItem.img;
+                tagElement.textContent = currentItem.tag;
+                titleElement.textContent = currentItem.title;
+                descElement.innerHTML = `<strong>Exhibit ${currentGalleryIndex + 1}:</strong> ${currentItem.desc}`;
+                counterElement.textContent = `${currentGalleryIndex + 1} / ${galleryDatabase.length}`;
+                
+                // Update dots indicators active index
+                const dots = document.getElementById('gallery-indicator-dots').children;
+                for (let i = 0; i < dots.length; i++) {
+                    if (i === currentGalleryIndex) {
+                        dots[i].className = "w-1.5 h-1.5 rounded-full transition-all duration-300 bg-brand-emerald w-3";
+                    } else {
+                        dots[i].className = "w-1.5 h-1.5 rounded-full transition-all duration-300 bg-brand-800";
+                    }
+                }
+                imgElement.style.opacity = 1;
+            }, 100);
+        }
+
+        // Fullscreen Mode Controller
+        function toggleFullscreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().then(() => {
+                    playChimeEffect(880, "sine", 0.25);
+                }).catch(err => {
+                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+                playChimeEffect(587.33, "sine", 0.15);
+            }
+        }
+
+        // Native Presentation Keyboard Event Listeners
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'Space') {
+                e.preventDefault();
+                navigateSlide(1);
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                navigateSlide(-1);
+            } else if (e.key === 'Escape') {
+                if (isNotesDrawerOpen) toggleNotes();
+            }
+        });
+
+        // Touchscreen Swipe Gestures Configuration
+        let touchstartX = 0;
+        let touchendX = 0;
+        const gestureZone = document.getElementById('presentation-viewport-wrapper');
+
+        gestureZone.addEventListener('touchstart', function(event) {
+            touchstartX = event.changedTouches[0].screenX;
+        }, false);
+
+        gestureZone.addEventListener('touchend', function(event) {
+            touchendX = event.changedTouches[0].screenX;
+            handleSwipeGesture();
+        }, false);
+
+        function handleSwipeGesture() {
+            if (touchendX < touchstartX - 50) {
+                navigateSlide(1); // Swipe left loads next slide
+            }
+            if (touchendX > touchstartX + 50) {
+                navigateSlide(-1); // Swipe right loads previous slide
+            }
+        }
+
+        // Formspree API Submission Mechanics (Ensures standard AJAX dispatches instead of opening standard Formspree page redirections)
+        function submitFormspree(event) {
+            event.preventDefault();
+            const form = event.target;
+            const successOverlay = document.getElementById('form-success-overlay');
+            const errorOverlay = document.getElementById('form-error-overlay');
+            const errorMsgSpan = document.getElementById('error-overlay-message');
+
+            const formData = new FormData(form);
+            
+            // Build the dynamic URL using the configured ID
+            const endpoint = FORMSPREE_ID && FORMSPREE_ID !== "placeholder" 
+                ? `https://formspree.io/f/${FORMSPREE_ID}` 
+                : "https://formspree.io/f/placeholder";
+
+            fetch(endpoint, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    successOverlay.classList.remove('hidden');
+                    playChimeEffect(523.25, "sine", 0.4);
+                    form.reset();
+                } else {
+                    errorMsgSpan.textContent = "Formspree returned an error status: " + response.status;
+                    errorOverlay.classList.remove('hidden');
+                    playChimeEffect(220, "sawtooth", 0.3);
+                }
+            }).catch(error => {
+                errorMsgSpan.textContent = "A connection error occurred. Please check your network.";
+                errorOverlay.classList.remove('hidden');
+                playChimeEffect(220, "sawtooth", 0.3);
+            });
+        }
+
+        // Formspree Layout Overlay Controllers
+        function resetContactForm() {
+            document.getElementById('form-success-overlay').classList.add('hidden');
+            playChimeEffect(440, "sine", 0.1);
+        }
+
+        function closeErrorOverlay() {
+            document.getElementById('form-error-overlay').classList.add('hidden');
+            playChimeEffect(440, "sine", 0.1);
+        }
+    </script>
+</body>
+</html>
+</html>
