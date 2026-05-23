@@ -3,1074 +3,1640 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sarah Jenkins | Professional Portfolio Presentation</title>
-    <!-- Tailwind CSS for modern design systems -->
+    <title>LAMUN 26 - Timely Currents, Timeless Depths</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Premium Google Fonts: Playfair Display & Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- FontAwesome Premium Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#f5f7fa',
-                            100: '#eaeef4',
-                            200: '#d1dbe5',
-                            300: '#abbcd1',
-                            400: '#7d99b9',
-                            500: '#5c7ba1',
-                            600: '#486285',
-                            700: '#3b4f6d',
-                            800: '#1e293b', /* Slate 800 */
-                            900: '#0f172a', /* Slate 900 */
-                            accent: '#f59e0b', /* Warm Amber */
-                            emerald: '#0d9488', /* Premium Teal */
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Lora:ital,wght=0,400;0,500;1,400&display=swap" rel="stylesheet">
+
     <style>
-        /* Smooth fade-in transitions for slides */
-        .slide {
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            transform: scale(0.98);
-            position: absolute;
-            inset: 0;
+    @keyframes breathingGlow {
+    0% {
+        box-shadow: 0 0 8px rgba(226,182,89,0.35);
+    }
+    50% {
+        box-shadow: 0 0 28px rgba(226,182,89,0.9);
+    }
+    100% {
+        box-shadow: 0 0 8px rgba(226,182,89,0.35);
+    }
+}
+
+.logo-breathe {
+    animation: breathingGlow 3s ease-in-out infinite;
+}
+        .font-serif-heading { font-family: 'Cinzel', serif; }
+        .font-serif-body { font-family: 'Lora', serif; }
+
+        /* Magical Gold Glowing Effects */
+        .gold-glow {
+            text-shadow: 0 0 10px rgba(226, 182, 89, 0.5), 0 0 20px rgba(226, 182, 89, 0.3);
         }
+        .gold-glow-box {
+            box-shadow: 0 0 15px rgba(226, 182, 89, 0.2), inset 0 0 20px rgba(226, 182, 89, 0.05);
+        }
+
+        /* Underwater Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float { animation: float 6s ease-in-out infinite; }
         
-        .slide.active {
-            opacity: 1;
-            visibility: visible;
-            transform: scale(1);
-            z-index: 10;
+        @keyframes float-delayed {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float-delayed { animation: float-delayed 8s ease-in-out infinite 2s; }
+
+        /* Deep Ocean Gradient Background */
+        .bg-ocean-depths {
+            background: radial-gradient(circle at 50% 0%, #0c1c38 0%, #050b14 70%);
         }
 
-        /* Prevent body scroll to lock screen layout like PowerPoint */
-        body {
-            overflow: hidden;
+        /* Magical Light Rays */
+        .light-rays {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(226,182,89,0.08) 0%, rgba(255,255,255,0) 100%);
+            clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+            pointer-events: none;
         }
 
-        /* Highlight animation for presenting active elements */
-        @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0.5; }
-            50% { transform: scale(1.05); opacity: 0.8; }
-            100% { transform: scale(0.95); opacity: 0.5; }
-        }
-        .pulse-accent {
-            animation: pulse-ring 3s infinite ease-in-out;
-        }
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
 
-        /* Presenter Notes slide transition & workspace resizing classes */
-        .notes-drawer {
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease-in-out, width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        /* Transition for expanding and shrinking the viewport card */
-        #presentation-viewport-wrapper {
-            transition: max-width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
-<body class="bg-[#090d16] text-slate-100 font-sans antialiased flex flex-col h-screen select-none">
+<body class="min-h-screen bg-[#050b14] text-slate-200 font-sans selection:bg-[#e2b659] selection:text-slate-900 overflow-x-hidden">
 
-    <!-- Presentation Header Control Bar -->
-    <header class="w-full bg-brand-900/90 border-b border-brand-800/80 px-6 py-4 flex items-center justify-between z-40">
-        <div class="flex items-center space-x-3">
-            <!-- Premium SVG School Book Monogram Logo -->
-            <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-emerald to-brand-accent p-0.5 shadow-md shadow-brand-emerald/10">
-                <div class="w-full h-full bg-[#090d16] rounded-[10px] flex items-center justify-center">
-                    <svg class="w-5 h-5 text-brand-emerald" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                </div>
-            </div>
-            <div class="leading-tight">
-                <span class="bg-brand-accent/20 border border-brand-accent/40 text-brand-accent text-[9px] px-1.5 py-0.5 rounded font-mono font-bold uppercase tracking-wider">
-                    Slide Show
-                </span>
-                <h1 class="font-serif text-base font-semibold tracking-wide mt-0.5">Sarah Jenkins <span class="text-slate-400 font-sans font-normal text-xs">| Educator Portfolio</span></h1>
-            </div>
-        </div>
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-500 bg-transparent py-5">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <!-- Logo Area -->
+        <div class="w-14 h-14 rounded-full border-2 border-[#e2b659] overflow-hidden bg-[#0a1526] logo-breathe transition-all duration-300">
+    <img 
+        src="https://uploads.onecompiler.io/44ppyx26p/44q5guz5z/lamun.jpg"
+        alt="LAMUN Logo"
+        class="w-full h-full object-cover"
+    />
+</div>
 
-        <!-- Quick Access Utility Controls -->
-        <div class="flex items-center space-x-2 sm:space-x-4">
-            <!-- Autoplay Toggle -->
-            <button onclick="toggleAutoplay()" id="autoplay-btn" class="flex items-center space-x-2 bg-brand-800/80 hover:bg-brand-700 border border-brand-700/60 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" title="Toggle Slide Loop">
-                <i class="fa-solid fa-play text-brand-accent" id="autoplay-icon"></i>
-                <span id="autoplay-text">Auto Play</span>
-            </button>
-            
-            <!-- Presenter Notes Toggle -->
-            <button onclick="toggleNotes()" id="notes-toggle-btn" class="flex items-center space-x-2 bg-brand-800/80 hover:bg-brand-700 border border-brand-700/60 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all" title="View Presenter Notes">
-                <i class="fa-solid fa-note-sticky text-teal-400"></i>
-                <span>Presenter Notes</span>
-            </button>
-
-            <!-- Fullscreen trigger -->
-            <button onclick="toggleFullscreen()" class="text-slate-400 hover:text-white transition-colors p-2" title="Toggle Fullscreen">
-                <i class="fa-solid fa-expand text-sm"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Main Interactive Workspace -->
-    <div class="flex-1 flex overflow-hidden relative">
-        
-        <!-- Presentation Slide Canvas Area -->
-        <div class="flex-1 flex items-center justify-center p-4 md:p-8 bg-gradient-to-br from-[#0b101d] to-[#04060b] relative">
-            
-            <!-- 16:9 Presentation Slide Container Card (Wraps the viewport card inside a dynamic max-width selector) -->
-            <div id="presentation-viewport-wrapper" class="w-full max-w-6xl aspect-[16/9] bg-brand-900 rounded-2xl border border-brand-800 shadow-2xl overflow-hidden relative flex flex-col justify-between" id="presentation-viewport">
-                
-                <!-- Linear Dynamic Progress Bar -->
-                <div class="w-full h-1 bg-brand-800 absolute top-0 left-0 z-50">
-                    <div class="h-full bg-gradient-to-r from-brand-accent to-brand-emerald transition-all duration-500" style="width: 14.28%" id="slide-progress-bar"></div>
-                </div>
-
-                <!-- SLIDE VIEWPORT INNER CONTENT -->
-                <div class="flex-1 relative overflow-hidden">
-
-                    <!-- SLIDE 1: Welcome & Landing Title -->
-                    <div class="slide active p-8 md:p-12 flex flex-col justify-between" id="slide-0">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-school mr-1.5"></i>Slide 01 // Introduction</span>
-                            <span class="text-xs text-slate-400">AP Literature Seminar</span>
-                        </div>
-                        
-                        <div class="my-auto max-w-3xl space-y-4">
-                            <h2 class="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight">
-                                Inspiring Minds Through <span class="text-brand-accent italic">Critical Analysis</span> & Literary Depth.
-                            </h2>
-                            <p class="text-slate-300 text-sm md:text-base lg:text-lg font-light leading-relaxed max-w-2xl">
-                                Welcome to my teaching portfolio deck. This presentation walks through my academic philosophy, curriculum credentials, and custom classroom layout designed for high school success.
-                            </p>
-                        </div>
-
-                        <div class="flex items-center justify-between border-t border-brand-800/80 pt-4">
-                            <div>
-                                <h3 class="font-serif font-bold text-sm text-white">Sarah Jenkins, M.Ed.</h3>
-                                <p class="text-xs text-slate-400">Literature Educator & Mentor</p>
-                            </div>
-                            <div class="flex space-x-4 text-xs text-slate-400">
-                                <span><i class="fa-solid fa-map-pin text-brand-accent mr-1"></i>Oak Ridge Academy</span>
-                                <span><i class="fa-regular fa-calendar text-brand-emerald mr-1"></i>Academic Portfolio</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 2: About Me & Teaching Philosophy -->
-                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-1">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-id-badge mr-1.5"></i>Slide 02 // Educator Story</span>
-                            <span class="text-xs text-slate-400">Philosophy & Drive</span>
-                        </div>
-
-                        <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                            <div class="md:col-span-4 flex justify-center">
-                                <div class="w-36 h-36 md:w-44 md:h-44 rounded-full bg-brand-800 border-2 border-brand-accent/50 flex flex-col items-center justify-center relative shadow-lg">
-                                    <i class="fa-solid fa-user-graduate text-5xl text-brand-accent mb-2"></i>
-                                    <span class="text-xs font-mono text-slate-300">8 Years Exp.</span>
-                                </div>
-                            </div>
-                            <div class="md:col-span-8 space-y-4">
-                                <h2 class="font-serif text-2xl md:text-3xl font-bold text-white">An Analytical and Supportive Classroom Approach</h2>
-                                <p class="text-xs md:text-sm text-slate-300 font-light leading-relaxed">
-                                    I believe a modern literature classroom must build critical reasoning, not just memory. By creating customized curricula, my classroom pairs classical prose with contemporary digital analytics, making literature highly relevant to today's creative scholars.
-                                </p>
-                                <div class="grid grid-cols-2 gap-4 pt-2">
-                                    <div class="bg-brand-800/40 p-3 rounded-xl border border-brand-800">
-                                        <h4 class="text-xs font-bold text-brand-accent uppercase mb-1">Inclusivity First</h4>
-                                        <p class="text-[11px] text-slate-400">Respecting diverse perspectives in narrative analysis.</p>
-                                    </div>
-                                    <div class="bg-brand-800/40 p-3 rounded-xl border border-brand-800">
-                                        <h4 class="text-xs font-bold text-brand-emerald uppercase mb-1">Rigorous Rhetoric</h4>
-                                        <p class="text-[11px] text-slate-400">Polishing critical, argumentative essay mechanics.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="border-t border-brand-800/80 pt-4 flex justify-between items-center text-xs text-slate-400">
-                            <span>"To write clearly is to think clearly."</span>
-                            <span>Sarah Jenkins</span>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 3: Credentials & Milestone Credentials -->
-                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-2">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-award mr-1.5"></i>Slide 03 // Qualifications</span>
-                            <span class="text-xs text-slate-400">Academic History</span>
-                        </div>
-
-                        <div class="my-auto space-y-4">
-                            <h2 class="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-center text-white mb-1">Educational Journey & Core Metrics</h2>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <!-- Mile 1 -->
-                                <div class="bg-brand-800/50 p-4 rounded-xl border border-brand-700/50 relative overflow-hidden">
-                                    <span class="absolute top-2 right-3 text-2xl text-brand-accent opacity-10"><i class="fa-solid fa-graduation-cap"></i></span>
-                                    <span class="text-[10px] font-mono font-bold text-brand-accent tracking-widest block mb-1">M.ED. DEGREE</span>
-                                    <h3 class="text-xs font-bold text-white mb-1">Secondary English Curriculum</h3>
-                                    <p class="text-[11px] text-slate-400">Boston University // Year 2018</p>
-                                    <p class="text-[11px] text-slate-300 mt-2 font-light">Specialized in adolescent literacy drive research.</p>
-                                </div>
-                                <!-- Mile 2 -->
-                                <div class="bg-brand-800/50 p-4 rounded-xl border border-brand-700/50 relative overflow-hidden">
-                                    <span class="absolute top-2 right-3 text-2xl text-brand-emerald opacity-10"><i class="fa-solid fa-book"></i></span>
-                                    <span class="text-[10px] font-mono font-bold text-brand-emerald tracking-widest block mb-1">B.A. DEGREE</span>
-                                    <h3 class="text-xs font-bold text-white mb-1">English Literature & Rhetoric</h3>
-                                    <p class="text-[11px] text-slate-400">Williams College // Year 2015</p>
-                                    <p class="text-[11px] text-slate-300 mt-2 font-light">Graduated Magna ***** Laude with honors portfolio.</p>
-                                </div>
-                                <!-- Mile 3 -->
-                                <div class="bg-brand-800/50 p-4 rounded-xl border border-brand-700/50 relative overflow-hidden">
-                                    <span class="absolute top-2 right-3 text-2xl text-indigo-400 opacity-10"><i class="fa-solid fa-shield-halved"></i></span>
-                                    <span class="text-[10px] font-mono font-bold text-indigo-400 tracking-widest block mb-1">BOARD CERTIFIED</span>
-                                    <h3 class="text-xs font-bold text-white mb-1">AP Literature & Language</h3>
-                                    <p class="text-[11px] text-slate-400">College Board // Year 2021</p>
-                                    <p class="text-[11px] text-slate-300 mt-2 font-light">Official authorization to lecture Advanced Placement curriculum.</p>
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-3 gap-2 pt-2 text-center bg-brand-950/40 p-2 rounded-xl border border-brand-800/50">
-                                <div>
-                                    <span class="block text-base md:text-xl font-bold text-brand-accent">95%</span>
-                                    <span class="block text-[8px] text-slate-400 uppercase tracking-widest">AP Passing Rate</span>
-                                </div>
-                                <div>
-                                    <span class="block text-base md:text-xl font-bold text-white">1,200+</span>
-                                    <span class="block text-[8px] text-slate-400 uppercase tracking-widest">Students Educated</span>
-                                </div>
-                                <div>
-                                    <span class="block text-base md:text-xl font-bold text-brand-emerald">3x</span>
-                                    <span class="block text-[8px] text-slate-400 uppercase tracking-widest">Outstanding Teacher Nominee</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="border-t border-brand-800/80 pt-3 flex justify-between items-center text-xs text-slate-400">
-                            <span>"Dedicated to elevating standards of excellence."</span>
-                            <span>Sarah Jenkins</span>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 4: What to Expect & Curriculum Guidelines -->
-                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-3">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-list-check mr-1.5"></i>Slide 04 // What to Expect</span>
-                            <span class="text-xs text-slate-400">Classroom Framework</span>
-                        </div>
-
-                        <div class="my-auto space-y-4">
-                            <h2 class="font-serif text-2xl md:text-3xl font-bold text-white text-center mb-1">Transparent Curricular Guidelines</h2>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <!-- Card 1 -->
-                                <div class="bg-brand-800/30 p-4 rounded-xl border-t-2 border-brand-accent border-x border-b border-brand-800">
-                                    <div class="flex items-center space-x-2.5 mb-2">
-                                        <div class="w-8 h-8 rounded bg-brand-accent/20 flex items-center justify-center text-brand-accent">
-                                            <i class="fa-solid fa-route"></i>
-                                        </div>
-                                        <h3 class="font-serif text-sm md:text-base font-bold text-white">Weekly Roadmaps</h3>
-                                    </div>
-                                    <p class="text-xs text-slate-300 leading-relaxed font-light">
-                                        Every Friday afternoon, a comprehensive syllabus details readings, focus prompts, and upcoming deadlines, ensuring absolute structure.
-                                    </p>
-                                </div>
-                                <!-- Card 2 -->
-                                <div class="bg-brand-800/30 p-4 rounded-xl border-t-2 border-brand-emerald border-x border-b border-brand-800">
-                                    <div class="flex items-center space-x-2.5 mb-2">
-                                        <div class="w-8 h-8 rounded bg-brand-emerald/20 flex items-center justify-center text-brand-emerald">
-                                            <i class="fa-solid fa-users"></i>
-                                        </div>
-                                        <h3 class="font-serif text-sm md:text-base font-bold text-white">Socratic Seminars</h3>
-                                    </div>
-                                    <p class="text-xs text-slate-300 leading-relaxed font-light">
-                                        Bi-weekly dialogue assemblies allow students to build constructive interpretive defenses, developing team cooperation.
-                                    </p>
-                                </div>
-                                <!-- Card 3 -->
-                                <div class="bg-brand-800/30 p-4 rounded-xl border-t-2 border-indigo-500 border-x border-b border-brand-800">
-                                    <div class="flex items-center space-x-2.5 mb-2">
-                                        <div class="w-8 h-8 rounded bg-indigo-500/20 flex items-center justify-center text-indigo-400">
-                                            <i class="fa-solid fa-video"></i>
-                                        </div>
-                                        <h3 class="font-serif text-sm md:text-base font-bold text-white">Video Feedback</h3>
-                                    </div>
-                                    <p class="text-xs text-slate-300 leading-relaxed font-light">
-                                        Major argumentative assignments receive short, personalized screen-recorded voice-overs highlighting spelling and styling.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="border-t border-brand-800/80 pt-4 flex justify-between items-center text-xs text-slate-400">
-                            <span>"Constructive frameworks foster outstanding outputs."</span>
-                            <span>Sarah Jenkins</span>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 5: Classroom in Action (Video Slide) -->
-                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-4">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-video mr-1.5"></i>Slide 05 // Classroom Sample</span>
-                            <span class="text-xs text-slate-400">Literary Insights</span>
-                        </div>
-
-                        <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                            <div class="md:col-span-5 space-y-4">
-                                <h2 class="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-white">Classroom in Action</h2>
-                                <p class="text-[11px] md:text-xs lg:text-sm text-slate-300 leading-relaxed font-light">
-                                    Watch a sample lecture prompt exploring the timeless relevance of Shakespearean classics. I use high-impact visual summaries from educators worldwide to construct modern introductory hooks for high school scholars.
-                                </p>
-                                <div class="bg-brand-800/40 p-3 rounded-lg border border-brand-800/80 text-[10px] text-slate-400 space-y-1">
-                                    <span class="block font-bold text-brand-accent uppercase"><i class="fa-regular fa-lightbulb mr-1"></i>Curriculum Connection:</span>
-                                    <p>Integrating multi-modal videos engages diverse learning styles and ensures deeper analytical comprehension of complex source plays.</p>
-                                </div>
-                            </div>
-                            
-                            <div class="md:col-span-7">
-                                <!-- Video Container Element (16:9 Aspect Ratio) -->
-                                <div class="w-full aspect-video bg-black rounded-xl overflow-hidden border border-brand-700/50 shadow-xl relative">
-                                    <iframe 
-                                        class="w-full h-full"
-                                        src="https://www.youtube.com/embed/QTu39aMg_mU?si=tX6Vz3vI4VfGg_F9" 
-                                        title="Why should you read Hamlet? - TED-Ed" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                        allowfullscreen>
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="border-t border-brand-800/80 pt-3 flex justify-between items-center text-xs text-slate-400">
-                            <span>"Synthesizing traditional texts and modern digital arts."</span>
-                            <span>Sarah Jenkins</span>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 6: Student Works & Exhibitions (10 Image Gallery Slide) -->
-                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-5">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-solid fa-images mr-1.5"></i>Slide 06 // Gallery & Works</span>
-                            <span class="text-xs text-slate-400">Student Showcase</span>
-                        </div>
-
-                        <!-- Gallery Content Layout -->
-                        <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-                            <!-- Left Info and Gallery Details -->
-                            <div class="md:col-span-5 space-y-3">
-                                <h2 class="font-serif text-xl md:text-2xl lg:text-3xl font-bold text-white">Student Work Exhibition</h2>
-                                <p class="text-[11px] md:text-xs lg:text-sm text-slate-300 leading-relaxed font-light">
-                                    A direct window into the academic rigor, research catalogs, creative designs, and group projects created within our AP Literature sections. Use the arrow guides to slide through our 10 primary catalog items.
-                                </p>
-                                <div class="bg-brand-emerald/10 p-3 rounded-lg border border-brand-emerald/20 flex items-start space-x-2.5">
-                                    <i class="fa-solid fa-circle-info text-brand-emerald mt-0.5 text-xs"></i>
-                                    <p class="text-[10px] lg:text-[11px] text-slate-300" id="gallery-current-description">
-                                        Exhibit 1: Loading description...
-                                    </p>
-                                </div>
-                            </div>
-
-                            <!-- Right Side Interactive Gallery Carousel -->
-                            <div class="md:col-span-7">
-                                <div class="relative w-full aspect-[4/3] bg-brand-950/80 rounded-xl overflow-hidden border border-brand-800 shadow-xl flex flex-col justify-between p-3">
-                                    
-                                    <!-- Image Display Window with Overlay Info -->
-                                    <div class="relative flex-1 w-full rounded-lg overflow-hidden bg-slate-900 flex items-center justify-center">
-                                        <!-- Fallback Graphic/Image with onerror handling -->
-                                        <img id="gallery-image-element" src="https://placehold.co/600x450/1e293b/0d9488?text=Exhibit+1" onerror="this.src='https://placehold.co/600x450/111827/ffffff?text=Image+Not+Available'" class="w-full h-full object-cover transition-opacity duration-300" alt="Student Work">
-                                        
-                                        <!-- Visual Gradient Top Gradient overlay -->
-                                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-4 flex flex-col justify-end">
-                                            <span class="text-brand-accent text-[9px] font-mono font-bold tracking-widest uppercase" id="gallery-image-tag">CLASS EXHIBIT</span>
-                                            <h3 class="text-white font-serif text-sm font-semibold mt-0.5" id="gallery-image-title">Exhibit Slide Loading...</h3>
-                                        </div>
-                                    </div>
-
-                                    <!-- Gallery Controls and Counter -->
-                                    <div class="flex items-center justify-between pt-3 text-xs">
-                                        <!-- Carousel Left Control -->
-                                        <button onclick="navigateGallery(-1)" class="w-8 h-8 rounded-lg bg-brand-800 hover:bg-brand-700 hover:text-white flex items-center justify-center transition-colors shadow">
-                                            <i class="fa-solid fa-chevron-left"></i>
-                                        </button>
-                                        
-                                        <!-- Counter Indicators -->
-                                        <div class="flex items-center space-x-3">
-                                            <span class="text-slate-400 text-xs font-mono font-semibold" id="gallery-counter">1 / 10</span>
-                                            <div class="flex items-center space-x-1" id="gallery-indicator-dots">
-                                                <!-- Javascript will dynamically inject the dot elements here -->
-                                            </div>
-                                        </div>
-
-                                        <!-- Carousel Right Control -->
-                                        <button onclick="navigateGallery(1)" class="w-8 h-8 rounded-lg bg-brand-800 hover:bg-brand-700 hover:text-white flex items-center justify-center transition-colors shadow">
-                                            <i class="fa-solid fa-chevron-right"></i>
-                                        </button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="border-t border-brand-800/80 pt-3 flex justify-between items-center text-xs text-slate-400">
-                            <span>"Empowering original academic exploration."</span>
-                            <span>Sarah Jenkins</span>
-                        </div>
-                    </div>
-
-                    <!-- SLIDE 7: Direct Contact Form (Connected to Formspree) -->
-                    <div class="slide p-8 md:p-12 flex flex-col justify-between" id="slide-6">
-                        <div class="flex justify-between items-start">
-                            <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-accent"><i class="fa-regular fa-paper-plane mr-1.5"></i>Slide 07 // Contact Info</span>
-                            <span class="text-xs text-slate-400">Stay In Touch</span>
-                        </div>
-
-                        <div class="my-auto grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-                            <!-- Left Details Block -->
-                            <div class="md:col-span-5 space-y-4">
-                                <h2 class="font-serif text-2xl md:text-3xl font-bold text-white">Let's Connect Directly</h2>
-                                <p class="text-xs md:text-sm text-slate-300 leading-relaxed font-light">
-                                    Whether you are a student preparing for AP literature exams, a parent wishing to sync on milestones, or an academic administrator hoping to plan collaborative panels, I look forward to conversing.
-                                </p>
-                                
-                                <div class="space-y-2.5 pt-2">
-                                    <!-- Email Details -->
-                                    <div class="flex items-center space-x-3 text-slate-300 text-xs">
-                                        <div class="w-8 h-8 rounded bg-brand-800 flex items-center justify-center text-brand-accent">
-                                            <i class="fa-solid fa-envelope"></i>
-                                        </div>
-                                        <div>
-                                            <span class="block text-[9px] text-slate-400 uppercase font-semibold">Primary Address</span>
-                                            <span class="font-medium">sjenkins@oakridgeacademy.org</span>
-                                        </div>
-                                    </div>
-                                    <!-- Phone Details -->
-                                    <div class="flex items-center space-x-3 text-slate-300 text-xs">
-                                        <div class="w-8 h-8 rounded bg-brand-800 flex items-center justify-center text-brand-emerald">
-                                            <i class="fa-solid fa-phone"></i>
-                                        </div>
-                                        <div>
-                                            <span class="block text-[9px] text-slate-400 uppercase font-semibold">Campus Extension</span>
-                                            <span class="font-medium">(555) 439-0192 ex. 302</span>
-                                        </div>
-                                    </div>
-                                    <!-- Pink-styled Instagram Details -->
-                                    <div class="flex items-center space-x-3 text-slate-300 text-xs">
-                                        <div class="w-8 h-8 rounded bg-brand-800 flex items-center justify-center text-pink-500">
-                                            <i class="fa-brands fa-instagram text-sm"></i>
-                                        </div>
-                                        <div>
-                                            <span class="block text-[9px] text-slate-400 uppercase font-semibold">Instagram</span>
-                                            <span class="font-medium text-pink-400 hover:underline cursor-pointer">@sjenkins.lit.seminar</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Right Form Block (Active Formspree) -->
-                            <div class="md:col-span-7">
-                                <div class="bg-brand-800/30 p-5 rounded-xl border border-brand-850 shadow-lg relative overflow-hidden">
-                                    
-                                    <!-- Formspree success toast cover -->
-                                    <div id="form-success-overlay" class="hidden absolute inset-0 bg-brand-900/95 z-20 flex flex-col items-center justify-center text-center p-6 transition-all duration-300">
-                                        <div class="w-12 h-12 rounded-full bg-brand-emerald/20 flex items-center justify-center text-brand-emerald text-2xl mb-3 animate-bounce">
-                                            <i class="fa-solid fa-check"></i>
-                                        </div>
-                                        <h3 class="font-serif text-lg font-bold text-white mb-1">Message Sent Successfully!</h3>
-                                        <p class="text-xs text-slate-400 max-w-xs mb-4">
-                                            Your email was sent via Formspree to Sarah's Gmail. Expect a detailed response within 24 business hours.
-                                        </p>
-                                        <button onclick="resetContactForm()" class="text-[11px] text-brand-accent font-semibold hover:underline">
-                                            Send another inquiry
-                                        </button>
-                                    </div>
-
-                                    <!-- Formspree error toast cover -->
-                                    <div id="form-error-overlay" class="hidden absolute inset-0 bg-brand-900/95 z-20 flex flex-col items-center justify-center text-center p-6 transition-all duration-300">
-                                        <div class="w-12 h-12 rounded-full bg-rose-500/20 flex items-center justify-center text-rose-400 text-2xl mb-3">
-                                            <i class="fa-solid fa-triangle-exclamation"></i>
-                                        </div>
-                                        <h3 class="font-serif text-lg font-bold text-white mb-1">Could Not Dispatch Message</h3>
-                                        <p id="error-overlay-message" class="text-xs text-slate-400 max-w-xs mb-4">
-                                            There was a connection issue with Formspree. Please check your network and try again.
-                                        </p>
-                                        <button onclick="closeErrorOverlay()" class="text-[11px] text-brand-accent font-semibold hover:underline">
-                                            Go Back and Fix
-                                        </button>
-                                    </div>
-
-                                    <!-- Main Contact Form -->
-                                    <form id="presentation-contact-form" onsubmit="submitFormspree(event)" class="space-y-3">
-                                        <div class="grid grid-cols-2 gap-3">
-                                            <div class="space-y-1">
-                                                <label for="contact-name" class="block text-[10px] font-semibold text-slate-400">Name</label>
-                                                <input type="text" name="name" id="contact-name" required placeholder="Eleanor Vance" class="w-full bg-brand-900 border border-brand-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent">
-                                            </div>
-                                            <div class="space-y-1">
-                                                <label for="contact-email" class="block text-[10px] font-semibold text-slate-400">Email</label>
-                                                <input type="email" name="_replyto" id="contact-email" required placeholder="eleanor@mail.com" class="w-full bg-brand-900 border border-brand-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent">
-                                            </div>
-                                        </div>
-                                        <div class="space-y-1">
-                                            <label for="contact-role" class="block text-[10px] font-semibold text-slate-400">Who Are You?</label>
-                                            <select name="role" id="contact-role" class="w-full bg-brand-900 border border-brand-800 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-accent">
-                                                <option value="parent">Parent of active Student</option>
-                                                <option value="student">Oak Ridge Academy Student</option>
-                                                <option value="administrator">Academic Admin/Educator</option>
-                                                <option value="other">Other Inquiry</option>
-                                            </select>
-                                        </div>
-                                        <div class="space-y-1">
-                                            <label for="contact-msg" class="block text-[10px] font-semibold text-slate-400">Message Inquiry</label>
-                                            <textarea name="message" id="contact-msg" rows="3" required placeholder="I wanted to reach out regarding the AP test..." class="w-full bg-brand-900 border border-brand-800 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-600 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent resize-none"></textarea>
-                                        </div>
-                                        <button type="submit" class="w-full bg-gradient-to-r from-brand-accent to-amber-600 text-white font-bold text-xs py-2 px-4 rounded-lg shadow-md hover:brightness-110 active:scale-[0.98] transition-all">
-                                            Dispatch Formspree Message
-                                        </button>
-                                    </form>
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="border-t border-brand-800/80 pt-3 flex justify-between items-center text-xs text-slate-400">
-                            <span>"Constructing avenues for open educational dialogue."</span>
-                            <span>Sarah Jenkins</span>
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- PRESENTATION VIEWPORT FOOTER NAV BAR -->
-                <footer class="w-full bg-brand-950/80 border-t border-brand-800/60 py-3.5 px-6 flex items-center justify-between z-30">
-                    <button onclick="navigateSlide(-1)" class="text-xs font-semibold text-slate-400 hover:text-white transition-colors flex items-center space-x-1.5 px-3 py-1 bg-brand-900 hover:bg-brand-800 rounded-lg border border-brand-800">
-                        <i class="fa-solid fa-arrow-left"></i> <span>Prev</span>
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center space-x-8 font-serif-body text-sm tracking-wide">
+                    <a href="#home" class="hover:text-[#e2b659] transition-colors">Home</a>
+                    <a href="#about" class="hover:text-[#e2b659] transition-colors">Theme</a>
+                    <a href="#committees" class="hover:text-[#e2b659] transition-colors">Committees</a>
+                    <a href="#events" class="hover:text-[#e2b659] transition-colors">Schedule</a>
+                    <a href="#contact" class="hover:text-[#e2b659] transition-colors">Contact</a>
+                    
+                    <button id="nav-register-btn" onclick="openRegistrationModal()" class="bg-[#e2b659] text-[#050b14] px-6 py-2 rounded-sm font-semibold hover:bg-white transition-all duration-300 gold-glow">
+                        Register Now
                     </button>
                     
-                    <!-- Dynamic Slide Dot Markers -->
-                    <div class="flex items-center space-x-2" id="slide-indicators-container">
-                        <!-- Instantiated dynamically via JS -->
-                    </div>
-
-                    <button onclick="navigateSlide(1)" class="text-xs font-semibold text-slate-400 hover:text-white transition-colors flex items-center space-x-1.5 px-3 py-1 bg-brand-900 hover:bg-brand-800 rounded-lg border border-brand-800">
-                        <span>Next</span> <i class="fa-solid fa-arrow-right"></i>
+                    <!-- Admin Secretariat Console Trigger -->
+                    <button onclick="toggleAdminPanel()" class="text-slate-500 hover:text-[#e2b659] p-1 transition-colors" title="Secretariat Console">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                     </button>
-                </footer>
+                </div>
 
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center gap-4 md:hidden">
+                    <button onclick="toggleAdminPanel()" class="text-slate-400 hover:text-[#e2b659] transition-colors">
+                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-white focus:outline-none">
+                        <svg id="menu-icon" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                        <svg id="x-icon" class="w-6 h-6 hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+                    </button>
+                </div>
             </div>
         </div>
 
-        <!-- Sliding Presenter Notes Drawer (Right-Sidebar Alignment) -->
-        <aside id="notes-drawer" class="notes-drawer w-0 opacity-0 overflow-hidden bg-brand-900/95 border-l border-brand-800 h-full flex flex-col justify-between z-40 relative shadow-2xl">
-            <!-- Header bar inside Notes Sidebar -->
-            <div class="p-5 border-b border-brand-800/80 flex justify-between items-center bg-[#0d1321]">
-                <div class="flex items-center space-x-2">
-                    <i class="fa-solid fa-note-sticky text-teal-400"></i>
-                    <h3 class="font-serif font-bold text-white tracking-wide text-sm">Active Presenter Notes</h3>
+        <!-- Mobile Nav -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 w-full bg-[#050b14]/95 backdrop-blur-lg border-b border-[#e2b659]/20 py-4 px-6 flex-col gap-4 font-serif-body">
+            <a href="#home" class="mobile-link hover:text-[#e2b659]">Home</a>
+            <a href="#about" class="mobile-link hover:text-[#e2b659]">Theme</a>
+            <a href="#committees" class="mobile-link hover:text-[#e2b659]">Committees</a>
+            <a href="#events" class="mobile-link hover:text-[#e2b659]">Schedule</a>
+            <a href="#contact" class="mobile-link hover:text-[#e2b659]">Contact</a>
+            <button id="mobile-register-btn" onclick="openRegistrationModal()" class="bg-[#e2b659] text-[#050b14] px-6 py-2 rounded-sm font-semibold mt-2 w-max">Register Now</button>
+        </div>
+    </nav>
+
+    <section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden bg-ocean-depths pt-20">
+        <div class="light-rays opacity-40"></div>
+        
+        <div class="absolute top-1/4 left-0 w-[500px] h-[2px] bg-gradient-to-r from-transparent via-[#e2b659] to-transparent opacity-30 transform -rotate-12"></div>
+        <div class="absolute bottom-1/3 right-0 w-[600px] h-[2px] bg-gradient-to-l from-transparent via-[#e2b659] to-transparent opacity-20 transform rotate-12"></div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-6 text-center">
+            <div class="inline-block mb-4 px-4 py-1 border border-[#e2b659]/30 rounded-full bg-[#0a1526]/50 backdrop-blur-sm text-[#e2b659] text-xs md:text-sm font-serif-body tracking-widest animate-float-delayed">
+                LAM SON MODEL UNITED NATIONS
+            </div>
+            
+            <h1 class="font-serif-heading text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+                TIMELY CURRENTS, <br />
+                <span class="text-[#e2b659] gold-glow inline-block animate-float">TIMELESS DEPTHS</span>
+            </h1>
+            
+            <p class="font-serif-body text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+                Navigate the vast oceans of diplomacy. Uncover the hidden treasures of collaboration and guide the hands of time towards a brighter global future.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button id="hero-dive-btn" onclick="openRegistrationModal()" class="w-full sm:w-auto bg-[#e2b659] text-[#050b14] px-8 py-3 rounded-sm font-serif-heading font-bold tracking-wide hover:bg-white hover:scale-105 transition-all duration-300 gold-glow">
+                    Dive In
+                </button>
+                <a href="#committees" class="w-full sm:w-auto border border-[#e2b659]/50 text-white px-8 py-3 rounded-sm font-serif-heading font-bold tracking-wide hover:bg-[#e2b659]/10 transition-all duration-300 flex items-center justify-center gap-2">
+                    View Committees 
+                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#050b14] to-transparent"></div>
+    </section>
+
+    <section id="about" class="py-24 relative z-10">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <!-- Left: Interactive visual loop -->
+                <div class="relative group">
+                    <div class="absolute inset-0 bg-[#e2b659] opacity-5 blur-3xl rounded-full group-hover:opacity-10 transition-opacity duration-700"></div>
+                    <div class="relative aspect-square rounded-full border border-[#e2b659]/20 flex items-center justify-center p-8 gold-glow-box bg-[#0a1526]/50 backdrop-blur-sm">
+                        <div class="absolute inset-4 rounded-full border border-dashed border-[#e2b659]/40 animate-[spin_60s_linear_infinite]"></div>
+                        <div class="absolute inset-12 rounded-full border border-[#e2b659]/20"></div>
+                        
+                        <div class="text-center animate-float">
+                            <svg class="w-16 h-16 text-[#e2b659] mx-auto mb-4 opacity-80" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="5" r="3"/><line x1="12" x2="12" y1="22" y2="8"/><line x1="5" x2="12" y1="12" y2="12"/><line x1="19" x2="12" y1="12" y2="12"/><path d="M2 22a10 10 0 0 0 20 0"/></svg>
+                            <div class="font-serif-heading text-2xl text-white tracking-widest">LAMUN</div>
+                            <div class="flex justify-center gap-2 mt-2 text-[#e2b659] text-xs">
+                                <span>X</span><span>XI</span><span>XII</span><span>I</span><span>II</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <button onclick="toggleNotes()" class="text-slate-400 hover:text-white p-1 rounded-lg hover:bg-brand-800 transition-colors">
-                    <i class="fa-solid fa-xmark text-sm"></i>
+
+                <!-- Right: Text Content -->
+                <div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="w-12 h-[1px] bg-[#e2b659]"></span>
+                        <span class="text-[#e2b659] font-serif-heading tracking-widest text-sm">THEME 2026</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-serif-heading font-bold text-white mb-6">
+                        Echoes of the Abyss
+                    </h2>
+                    <div class="font-serif-body text-slate-300 space-y-4 leading-relaxed">
+                        <p>
+                            Much like the majestic whale traversing the boundless oceans, humanity navigates through the complex currents of time and geopolitics. LAMUN '26 invites delegates to plunge into the unknown depths of global issues.
+                        </p>
+                        <p>
+                            Guided by the steady hand of the clock and the enduring spirit of collaboration, we seek to unearth hidden treasures—innovative solutions, lasting peace, and sustainable progress. The laurel wreaths of victory await those bold enough to chart a new course.
+                        </p>
+                    </div>
+                    
+                    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="border border-[#e2b659]/20 bg-[#0a1526] p-4 rounded-sm">
+                            <svg class="text-[#e2b659] mb-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                            <h4 class="font-serif-heading font-bold text-white text-lg">Global Reach</h4>
+                            <p class="text-sm text-slate-400 mt-1">Delegates from across the region.</p>
+                        </div>
+                        <div class="border border-[#e2b659]/20 bg-[#0a1526] p-4 rounded-sm">
+                            <svg class="text-[#e2b659] mb-2 w-6 h-6" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                            <h4 class="font-serif-heading font-bold text-white text-lg">Treasured Ideals</h4>
+                            <p class="text-sm text-slate-400 mt-1">Fostering diplomacy and leadership.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="events" class="py-24 relative z-10 bg-[#050b14]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <span class="w-8 h-[1px] bg-[#e2b659]"></span>
+                        <span class="text-[#e2b659] font-serif-heading tracking-widest text-sm">CHRONICLES</span>
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-serif-heading font-bold text-white">Upcoming Events</h2>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Event 1 -->
+                <div class="bg-[#0a1526] border border-[#e2b659]/20 rounded-sm p-8 relative overflow-hidden group shadow-[0_0_20px_rgba(226,182,89,0.02)] hover:border-[#e2b659]/50 transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#e2b659] opacity-[0.02] rounded-bl-full group-hover:opacity-5 transition-opacity pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="bg-[#e2b659]/10 text-[#e2b659] text-xs font-serif-heading font-semibold px-3 py-1 rounded-full border border-[#e2b659]/20 uppercase tracking-wider">Phase I</span>
+                            <span class="text-slate-500 font-serif-heading text-xs font-semibold">01 / 03</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-[#e2b659] font-serif-body text-xs mb-3">
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                            <span>August 15, 2026</span>
+                        </div>
+                        <h3 class="text-xl font-serif-heading font-bold text-white mb-3 group-hover:text-[#e2b659] transition-colors">Delegate Training Workshop</h3>
+                        <p class="font-serif-body text-slate-400 text-sm leading-relaxed mb-6">
+                            Master the core currents of diplomacy. An intensive session focusing on procedural rules, resolution writing, and negotiation tactics for both beginners and veterans.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 text-slate-300 text-xs mb-6">
+                            <svg class="w-4 h-4 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Lam Son High School</span>
+                        </div>
+                        <button onclick="openRegistrationModal('UNGA')" class="w-full bg-[#e2b659]/10 border border-[#e2b659]/30 text-[#e2b659] py-2.5 rounded-sm font-serif-heading font-bold tracking-wide hover:bg-[#e2b659] hover:text-[#050b14] transition-all duration-300 text-sm flex items-center justify-center gap-2">
+                            Register Session 
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="bg-[#0a1526] border border-[#e2b659]/20 rounded-sm p-8 relative overflow-hidden group shadow-[0_0_20px_rgba(226,182,89,0.02)] hover:border-[#e2b659]/50 transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#e2b659] opacity-[0.02] rounded-bl-full group-hover:opacity-5 transition-opacity pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="bg-[#e2b659]/10 text-[#e2b659] text-xs font-serif-heading font-semibold px-3 py-1 rounded-full border border-[#e2b659]/20 uppercase tracking-wider">Phase II</span>
+                            <span class="text-slate-500 font-serif-heading text-xs font-semibold">02 / 03</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-[#e2b659] font-serif-body text-xs mb-3">
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                            <span>September 12, 2026</span>
+                        </div>
+                        <h3 class="text-xl font-serif-heading font-bold text-white mb-3 group-hover:text-[#e2b659] transition-colors">Mock Simulation Conference</h3>
+                        <p class="font-serif-body text-slate-400 text-sm leading-relaxed mb-6">
+                            Test your diplomatic armor. Engage in a fast-paced mini-session with unexpected crisis updates to practice lobbying, active debating, and quick consensus-building.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-2 text-slate-300 text-xs mb-6">
+                            <svg class="w-4 h-4 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Library Hall, Lam Son HS</span>
+                        </div>
+                        <button onclick="openRegistrationModal('UNSC')" class="w-full bg-[#e2b659]/10 border border-[#e2b659]/30 text-[#e2b659] py-2.5 rounded-sm font-serif-heading font-bold tracking-wide hover:bg-[#e2b659] hover:text-[#050b14] transition-all duration-300 text-sm flex items-center justify-center gap-2">
+                            Secure Spot 
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="bg-[#0a1526]/80 border border-[#e2b659]/40 rounded-sm p-8 relative overflow-hidden group shadow-[0_0_30px_rgba(226,182,89,0.05)] hover:border-[#e2b659] transition-all duration-500 hover:-translate-y-1 flex flex-col justify-between">
+                    <div class="absolute inset-0 bg-gradient-to-b from-[#e2b659]/5 to-transparent opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
+                    <div>
+                        <div class="flex items-center justify-between mb-6 relative z-10">
+                            <span class="bg-[#e2b659] text-[#050b14] text-xs font-serif-heading font-bold px-3 py-1 rounded-full border border-[#e2b659] uppercase tracking-wider gold-glow">Main Conference</span>
+                            <span class="text-[#e2b659] font-serif-heading text-xs font-semibold">03 / 03</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-[#e2b659] font-serif-body text-xs mb-3 relative z-10">
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                            <span>October 23-25, 2026</span>
+                        </div>
+                        <h3 class="text-xl font-serif-heading font-bold text-white mb-3 group-hover:text-[#e2b659] transition-colors relative z-10">LAMUN 26: Timely Currents</h3>
+                        <p class="font-serif-body text-slate-300 text-sm leading-relaxed mb-6 relative z-10">
+                            The crown jewel. Join hundreds of international and local delegates to debate deep ocean geopolitics, chart uncharted treaties, and claim your laurel wreaths.
+                        </p>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-2 text-slate-300 text-xs mb-6">
+                            <svg class="w-4 h-4 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>Convention Center & Lam Son Campus</span>
+                        </div>
+                        <button onclick="openRegistrationModal('HCC')" class="w-full bg-[#e2b659] text-[#050b14] py-2.5 rounded-sm font-serif-heading font-bold tracking-wide hover:bg-white transition-all duration-300 text-sm flex items-center justify-center gap-2 gold-glow">
+                            Register Conference 
+                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="committees" class="py-24 bg-[#0a1526] relative border-y border-[#e2b659]/10">
+        <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjEiIGZpbGw9IiNlMmI2NTkiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <div class="flex justify-center items-center gap-4 mb-4">
+                    <span class="w-8 h-[1px] bg-[#e2b659]"></span>
+                    <span class="text-[#e2b659] font-serif-heading tracking-widest text-sm">COUNCILS</span>
+                    <span class="w-8 h-[1px] bg-[#e2b659]"></span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-serif-heading font-bold text-white">Committees & Treasures</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Committee Card 1 -->
+                <div class="group bg-[#050b14] border border-[#e2b659]/20 hover:border-[#e2b659]/60 p-8 rounded-sm transition-all duration-500 hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-[#0a1526] rounded-full border border-[#e2b659]/30 flex items-center justify-center mb-6 group-hover:bg-[#e2b659] transition-colors duration-500">
+                        <svg class="w-6 h-6 text-[#e2b659] group-hover:text-[#050b14]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3 class="font-serif-heading text-xl font-bold text-white mb-2">UN General Assembly</h3>
+                    <p class="font-serif-body text-slate-400 text-sm mb-6">Addressing the surface currents of global policy and international security.</p>
+                    <button onclick="openRegistrationModal('UNGA')" class="text-[#e2b659] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Register for Council 
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+
+                <!-- Committee Card 2 -->
+                <div class="group bg-[#050b14] border border-[#e2b659]/20 hover:border-[#e2b659]/60 p-8 rounded-sm transition-all duration-500 hover:-translate-y-2 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#e2b659] opacity-5 rounded-bl-full group-hover:opacity-10 transition-opacity"></div>
+                    <div class="w-12 h-12 bg-[#0a1526] rounded-full border border-[#e2b659]/30 flex items-center justify-center mb-6 group-hover:bg-[#e2b659] transition-colors duration-500">
+                        <svg class="w-6 h-6 text-[#e2b659] group-hover:text-[#050b14]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                    </div>
+                    <h3 class="font-serif-heading text-xl font-bold text-white mb-2">Security Council</h3>
+                    <p class="font-serif-body text-slate-400 text-sm mb-6">Navigating the most treacherous geopolitical trenches and maintaining peace.</p>
+                    <button onclick="openRegistrationModal('UNSC')" class="text-[#e2b659] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Register for Council 
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+
+                <!-- Committee Card 3 -->
+                <div class="group bg-[#050b14] border border-[#e2b659]/20 hover:border-[#e2b659]/60 p-8 rounded-sm transition-all duration-500 hover:-translate-y-2">
+                    <div class="w-12 h-12 bg-[#0a1526] rounded-full border border-[#e2b659]/30 flex items-center justify-center mb-6 group-hover:bg-[#e2b659] transition-colors duration-500">
+                        <svg class="w-6 h-6 text-[#e2b659] group-hover:text-[#050b14]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <h3 class="font-serif-heading text-xl font-bold text-white mb-2">Historical Crisis</h3>
+                    <p class="font-serif-body text-slate-400 text-sm mb-6">Turning back the clock to rewrite the maritime chronicles of history.</p>
+                    <button onclick="openRegistrationModal('HCC')" class="text-[#e2b659] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all">
+                        Register for Council 
+                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 relative z-10">
+        <div class="max-w-4xl mx-auto px-6 lg:px-8 text-center flex flex-col items-center">
+            <div class="text-center mb-12">
+                <div class="flex justify-center items-center gap-4 mb-4">
+                    <span class="w-8 h-[1px] bg-[#e2b659]"></span>
+                    <span class="text-[#e2b659] font-serif-heading tracking-widest text-sm">REACH OUT</span>
+                    <span class="w-8 h-[1px] bg-[#e2b659]"></span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-serif-heading font-bold text-white">Contact the Secretariat</h2>
+            </div>
+
+            <!-- Contact Information Centered Layout -->
+            <div class="max-w-2xl mx-auto space-y-12">
+                <p class="font-serif-body text-slate-300 text-lg md:text-xl leading-relaxed">
+                    Whether you have questions regarding committee assignments, registration details, or the conference schedule, our team is ready to guide you through the currents.
+                </p>
+                
+                <!-- Clean Centered Contact Cards -->
+                <div class="grid sm:grid-cols-2 gap-8 justify-items-center">
+                    <!-- Location Card -->
+                    <div class="flex flex-col items-center text-center p-6 bg-[#0a1526] border border-[#e2b659]/20 rounded-sm w-full max-w-sm gold-glow-box">
+                        <div class="w-12 h-12 bg-[#050b14] rounded-full border border-[#e2b659]/30 flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <h4 class="font-serif-heading font-bold text-white text-lg mb-1">Location</h4>
+                        <p class="text-slate-400 font-serif-body text-sm">Lam Son High School for the Gifted<br/>Thanh Hoa, Vietnam</p>
+                    </div>
+
+                    <!-- Facebook Card -->
+                    <div class="flex flex-col items-center text-center p-6 bg-[#0a1526] border border-[#e2b659]/20 rounded-sm w-full max-w-sm gold-glow-box">
+                        <div class="w-12 h-12 bg-[#050b14] rounded-full border border-[#e2b659]/30 flex items-center justify-center mb-4">
+                            <svg class="w-5 h-5 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                        </div>
+                        <h4 class="font-serif-heading font-bold text-white text-lg mb-1">Facebook</h4>
+                        <a href="https://facebook.com/lamun" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-[#e2b659] transition-colors font-serif-body text-sm">Lam Son Model United Nations</a>
+                    </div>
+                    <!-- Gmail Card -->
+<div class="flex flex-col items-center text-center p-6 bg-[#0a1526] border border-[#e2b659]/20 rounded-sm w-full max-w-sm gold-glow-box">
+    <div class="w-12 h-12 bg-[#050b14] rounded-full border border-[#e2b659]/30 flex items-center justify-center mb-4">
+        <svg class="w-5 h-5 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect width="20" height="16" x="2" y="4" rx="2"/>
+            <path d="m22 7-10 5L2 7"/>
+        </svg>
+    </div>
+
+    <h4 class="font-serif-heading font-bold text-white text-lg mb-1">Email</h4>
+
+    <a href="mailto:yourgmail@gmail.com"
+       class="text-slate-400 hover:text-[#e2b659] transition-colors font-serif-body text-sm">
+       yourgmail@gmail.com
+    </a>
+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Overlay -->
+    <div id="registration-overlay" class="fixed inset-0 z-50 bg-[#050b14]/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-[#0a1526] w-full max-w-lg rounded-sm border border-[#e2b659]/30 shadow-2xl relative overflow-hidden text-left flex flex-col gold-glow-box">
+            <div class="px-6 py-4 border-b border-[#e2b659]/10 flex justify-between items-center bg-[#07111f]">
+                <h3 class="font-serif-heading text-lg font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    LAMUN 26 Application
+                </h3>
+                <button onclick="closeRegistrationModal()" class="text-slate-400 hover:text-white transition-colors">
+                    <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
                 </button>
             </div>
 
-            <!-- Notes Body Area (Refreshed programmatically on navigation) -->
-            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="presenter-notes-body">
-                <!-- Injected dynamically based on slide ID -->
+            <!-- Enhanced wizard form setup -->
+            <form id="reg-form" onsubmit="handleRegistrationSubmit(event)" class="p-6 overflow-y-auto max-h-[75vh] space-y-6">
+                <div class="flex items-center justify-between border-b border-[#e2b659]/10 pb-4 mb-2 text-xs font-serif-heading tracking-wider">
+                    <span id="step-1-label" class="text-[#e2b659] font-bold">1. Credentials</span>
+                    <span id="step-2-label" class="text-slate-500">2. Preferences</span>
+                    <span id="step-3-label" class="text-slate-500">3. Statement</span>
+                </div>
+
+                <!-- Step 1 -->
+                <div id="reg-step-1" class="space-y-4">
+                    <div>
+                        <label class="block font-serif-heading text-xs text-slate-300 mb-1.5 uppercase">Full Name</label>
+                        <input type="text" id="reg-name" required class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2.5 text-white focus:outline-none focus:border-[#e2b659] transition-colors font-serif-body" placeholder="Delegate's Name" />
+                    </div>
+                    <div>
+                        <label class="block font-serif-heading text-xs text-slate-300 mb-1.5 uppercase">Email Address</label>
+                        <input type="email" id="reg-email" required class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2.5 text-white focus:outline-none focus:border-[#e2b659] transition-colors font-serif-body" placeholder="delegate@domain.com" />
+                    </div>
+                    <div>
+                        <label class="block font-serif-heading text-xs text-slate-300 mb-1.5 uppercase">Institution / School</label>
+                        <input type="text" id="reg-school" required class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2.5 text-white focus:outline-none focus:border-[#e2b659] transition-colors font-serif-body" placeholder="Lam Son High School for the Gifted" />
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" onclick="nextRegStep(2)" class="w-full bg-[#e2b659] text-[#050b14] py-3 rounded-sm font-serif-heading font-bold text-sm tracking-wide hover:bg-white transition-all duration-300 flex items-center justify-center gap-1">
+                            Next Stage <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div id="reg-step-2" class="space-y-4 hidden">
+                    <div>
+                        <label class="block font-serif-heading text-xs text-slate-300 mb-1.5 uppercase">Preferred Council</label>
+                        <select id="reg-committee" required class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2.5 text-white focus:outline-none focus:border-[#e2b659] transition-colors font-serif-body">
+                            <option value="UNGA">UN General Assembly (Surface Currents)</option>
+                            <option value="UNSC">UN Security Council (Abyssal Geopolitics)</option>
+                            <option value="HCC">Historical Crisis Committee (Historical Chronology)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-serif-heading text-xs text-slate-300 mb-1.5 uppercase">Country / Representation Preference</label>
+                        <input type="text" id="reg-country" required class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2.5 text-white focus:outline-none focus:border-[#e2b659] transition-colors font-serif-body" placeholder="e.g. United Kingdom, Vietnam, France" />
+                    </div>
+                    <div>
+                        <label class="block font-serif-heading text-xs text-slate-300 mb-1.5 uppercase">MUN Experience Level</label>
+                        <div class="grid grid-cols-3 gap-2">
+                            <label class="border border-[#e2b659]/20 bg-[#050b14] p-3 text-center rounded-sm cursor-pointer hover:border-[#e2b659] transition-colors block">
+                                <input type="radio" name="exp" value="Beginner" checked class="sr-only" />
+                                <span class="block text-xs font-serif-heading text-white">0-2 MUNs</span>
+                                <span class="text-[10px] text-slate-500">Beginner</span>
+                            </label>
+                            <label class="border border-[#e2b659]/20 bg-[#050b14] p-3 text-center rounded-sm cursor-pointer hover:border-[#e2b659] transition-colors block">
+                                <input type="radio" name="exp" value="Intermediate" class="sr-only" />
+                                <span class="block text-xs font-serif-heading text-white">3-5 MUNs</span>
+                                <span class="text-[10px] text-slate-500">Competent</span>
+                            </label>
+                            <label class="border border-[#e2b659]/20 bg-[#050b14] p-3 text-center rounded-sm cursor-pointer hover:border-[#e2b659] transition-colors block">
+                                <input type="radio" name="exp" value="Expert" class="sr-only" />
+                                <span class="block text-xs font-serif-heading text-white">6+ MUNs</span>
+                                <span class="text-[10px] text-slate-500">Veteran</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" onclick="nextRegStep(1)" class="w-1/3 bg-[#050b14] border border-[#e2b659]/30 text-white py-3 rounded-sm font-serif-heading font-semibold text-sm tracking-wide hover:bg-[#e2b659]/15 transition-all">
+                            Back
+                        </button>
+                        <button type="button" onclick="nextRegStep(3)" class="w-2/3 bg-[#e2b659] text-[#050b14] py-3 rounded-sm font-serif-heading font-bold text-sm tracking-wide hover:bg-white transition-all flex items-center justify-center gap-1">
+                            Next Stage <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div id="reg-step-3" class="space-y-4 hidden">
+                    <div>
+                        <label class="block font-serif-heading text-xs text-slate-300 mb-1.5 uppercase">Which event are you registering to take part in?</label>
+                        <textarea id="reg-statement" rows="4" required class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2.5 text-white focus:outline-none focus:border-[#e2b659] transition-colors font-serif-body resize-none" placeholder="Briefly articulate how you aim to navigate the timely currents and timeless depths of this summit..."></textarea>
+                    </div>
+                    <div class="flex gap-4">
+                        <button type="button" onclick="nextRegStep(2)" class="w-1/3 bg-[#050b14] border border-[#e2b659]/30 text-white py-3 rounded-sm font-serif-heading font-semibold text-sm tracking-wide hover:bg-[#e2b659]/15 transition-all">
+                            Back
+                        </button>
+                        <button type="submit" class="w-2/3 bg-[#e2b659] text-[#050b14] py-3 rounded-sm font-serif-heading font-bold text-sm tracking-wide hover:bg-white transition-all flex items-center justify-center gap-1 gold-glow">
+                            Submit Application
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <div id="reg-loader" class="absolute inset-0 bg-[#050b14]/95 backdrop-blur-md hidden flex-col items-center justify-center p-8 text-center space-y-4">
+                <div class="w-16 h-16 rounded-full border-4 border-dashed border-[#e2b659] animate-spin flex items-center justify-center bg-[#0a1526] gold-glow-box">
+                    <svg class="w-6 h-6 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                </div>
+                <h4 class="font-serif-heading text-lg font-bold text-white tracking-widest uppercase">Syncing to Cloud</h4>
+                <p class="font-serif-body text-slate-400 text-sm max-w-xs">Writing spatial records securely to the LAMUN database channels...</p>
             </div>
 
-            <!-- Footer Details inside Notes Sidebar -->
-            <div class="p-4 bg-[#0d1321] border-t border-brand-800/80 text-[10px] text-slate-400 flex items-center justify-between">
-                <span>Presenter View Enabled</span>
-                <span id="notes-slide-tracker">Slide 1 of 7</span>
+            <div id="reg-success" class="absolute inset-0 bg-[#050b14] hidden flex-col items-center justify-center p-8 text-center space-y-6">
+                <div class="w-20 h-20 bg-[#e2b659]/10 border border-[#e2b659]/50 rounded-full flex items-center justify-center animate-float gold-glow-box">
+                    <svg class="w-10 h-10 text-[#e2b659] gold-glow" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="font-serif-heading text-2xl font-bold text-white tracking-widest">PASSPORT GRANTED</h3>
+                    <p class="font-serif-body text-slate-300 max-w-sm mx-auto">
+                        Your registration for <span class="text-[#e2b659]" id="success-user-name"></span> has been approved and saved. You can now access your customized dashboard kit.
+                    </p>
+                </div>
+                <button onclick="closeRegistrationModal(); viewDelegatePortal();" class="bg-[#e2b659] text-[#050b14] px-8 py-3 rounded-sm font-serif-heading font-bold text-sm tracking-wide hover:bg-white transition-all duration-300 gold-glow">
+                    Access My Dashboard
+                </button>
             </div>
-        </aside>
-
+        </div>
     </div>
 
-    <script>
-        // Presentation Variables & State Trackers
-        let currentSlideIndex = 0;
-        const totalSlides = 7;
-        let isAutoplayActive = false;
-        let autoplayInterval = null;
-        let isNotesDrawerOpen = false;
+    <!-- Admin / Secretariat Panel Overlay -->
+    <div id="admin-overlay" class="fixed inset-0 z-50 bg-[#050b14]/95 backdrop-blur-md hidden overflow-y-auto p-4 md:p-8">
+        <div class="max-w-6xl mx-auto space-y-8 my-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#e2b659]/20 pb-6">
+                <div>
+                    <span class="text-[#e2b659] font-serif-heading text-xs tracking-widest font-bold uppercase">Secretariat Command Panel</span>
+                    <h1 class="font-serif-heading text-3xl font-bold text-white tracking-wide">Coordinator Command Center</h1>
+                </div>
+                <button onclick="toggleAdminPanel()" class="border border-red-500/30 text-red-400 px-5 py-2 hover:bg-red-500/10 transition-colors text-sm rounded-sm font-serif-heading tracking-wider">
+                    Exit Console
+                </button>
+            </div>
 
-        // =======================================================================
-        // ★ FORMSPREE CONFIGURATION ★
-        // Formspree API Key Configured
-        // =======================================================================
-        const FORMSPREE_ID = "meedolpv"; 
+            <!-- Tabs Navigation -->
+            <div class="flex border-b border-[#e2b659]/10 gap-2">
+                <button id="tab-applicants-btn" onclick="switchAdminTab('applicants')" class="px-5 py-2.5 border-b-2 border-[#e2b659] text-[#e2b659] font-serif-heading text-sm font-semibold tracking-wider">
+                    Applicants List
+                </button>
+                <button id="tab-security-btn" onclick="switchAdminTab('security')" class="px-5 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-white font-serif-heading text-sm font-semibold tracking-wider transition-colors">
+                    Security Configuration
+                </button>
+            </div>
 
-        // Native Synthesizer Audio Utility Configuration (No External Audio Files Needed)
-        function playChimeEffect(frequency = 440, type = "sine", duration = 0.15) {
-            try {
-                const AudioCtx = window.AudioContext || window.webkitAudioContext;
-                if (!AudioCtx) return;
-                const ctx = new AudioCtx();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
+            <!-- Tab Content: Applicants List -->
+            <div id="tab-applicants-content" class="w-full space-y-6">
+                <div class="bg-[#0a1526] p-6 md:p-8 rounded-sm border border-[#e2b659]/20 w-full space-y-4 shadow-2xl">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h3 class="font-serif-heading text-[#e2b659] font-bold uppercase tracking-wider text-md">Delegate Portfolios</h3>
+                            <p class="text-xs text-slate-400 font-serif-body mt-1">Review applicant responses, verify school and motivational essays, and allocate positions.</p>
+                        </div>
+                        <button onclick="fetchDelegateList()" class="text-xs text-[#e2b659] border border-[#e2b659]/20 hover:bg-[#e2b659]/10 px-4 py-2 rounded-sm transition-colors flex items-center gap-2 font-serif-heading">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"></path></svg>
+                            Sync Cloud Ledger
+                        </button>
+                    </div>
 
-                osc.type = type;
-                osc.frequency.setValueAtTime(frequency, ctx.currentTime);
+                    <div class="overflow-x-auto no-scrollbar pt-2">
+                        <table class="w-full text-left text-xs text-slate-300 min-w-[700px]">
+                            <thead>
+                                <tr class="border-b border-[#e2b659]/15 text-slate-500 uppercase tracking-widest text-[9px] pb-3">
+                                    <th class="py-3">Applicant Info</th>
+                                    <th class="py-3">Exp. Level</th>
+                                    <th class="py-3">Pref. Council</th>
+                                    <th class="py-3">Assigned Country</th>
+                                    <th class="py-3">Status</th>
+                                    <th class="py-3 text-right">Review Details</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-table-body">
+                                <tr>
+                                    <td colspan="6" class="py-8 text-center text-slate-500 font-serif-body italic">Fetching live registrations from secure cloud database...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Security Settings -->
+            <div id="tab-security-content" class="w-full space-y-6 hidden">
+                <div class="bg-[#0a1526] p-6 md:p-8 rounded-sm border border-[#e2b659]/20 max-w-xl mx-auto space-y-6 shadow-2xl">
+                    <div>
+                        <h3 class="font-serif-heading text-[#e2b659] font-bold uppercase tracking-wider text-md">Security Configuration</h3>
+                        <p class="text-xs text-slate-400 font-serif-body mt-1">To secure delegate personal data, change the passcode immediately to override the baseline default settings.</p>
+                    </div>
+
+                    <div class="space-y-4 border-t border-[#e2b659]/10 pt-4">
+                        <div>
+                            <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1.5 font-serif-heading">Current Passcode</label>
+                            <input type="password" id="sec-current-passcode" class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2 text-white text-sm focus:outline-none focus:border-[#e2b659] font-mono tracking-widest" placeholder="••••••••" />
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1.5 font-serif-heading">New Passcode</label>
+                            <input type="password" id="sec-new-passcode" class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2 text-white text-sm focus:outline-none focus:border-[#e2b659] font-mono tracking-widest" placeholder="Enter New Secure Passcode" />
+                        </div>
+                        <div>
+                            <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1.5 font-serif-heading">Confirm New Passcode</label>
+                            <input type="password" id="sec-confirm-passcode" class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2 text-white text-sm focus:outline-none focus:border-[#e2b659] font-mono tracking-widest" placeholder="Retype Secure Passcode" />
+                        </div>
+                    </div>
+
+                    <button onclick="saveNewAdminPasscode()" class="w-full bg-[#e2b659] text-[#050b14] py-3 rounded-sm font-serif-heading font-bold tracking-wider hover:bg-white transition-all text-sm gold-glow">
+                        Update Security Credentials
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review & Allocation Modal -->
+    <div id="allocation-modal" class="fixed inset-0 z-[60] bg-[#050b14]/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-[#0a1526] w-full max-w-2xl rounded-sm border border-[#e2b659]/30 p-6 space-y-6 gold-glow-box overflow-y-auto max-h-[90vh]">
+            <div class="flex justify-between items-start border-b border-[#e2b659]/10 pb-3">
+                <div>
+                    <span class="text-xs uppercase text-[#e2b659] tracking-wider font-semibold font-serif-heading">Review Applicant Portfolio</span>
+                    <h4 id="edit-delegate-name" class="font-serif-heading text-2xl font-bold text-white tracking-wider mt-1">---</h4>
+                </div>
+                <button onclick="closeAllocationModal()" class="text-slate-400 hover:text-white transition-colors text-2xl">&times;</button>
+            </div>
+            
+            <input type="hidden" id="edit-delegate-id" />
+            
+            <!-- Applicant Details -->
+            <div class="bg-[#050b14] border border-[#e2b659]/10 rounded-sm p-4 space-y-4">
+                <h5 class="text-xs uppercase text-slate-400 tracking-wider font-bold font-serif-heading">Registration Form Details</h5>
                 
-                // Set smooth visual sound decay
-                gain.gain.setValueAtTime(0.12, ctx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm font-serif-body">
+                    <div>
+                        <span class="text-[10px] uppercase text-slate-500 block font-sans">Email Address</span>
+                        <a id="review-email" href="" class="text-[#e2b659] hover:underline font-mono">---</a>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase text-slate-500 block font-sans">School / Institution</span>
+                        <span id="review-school" class="text-slate-300 block">---</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase text-slate-500 block font-sans">Preferred Council</span>
+                        <span id="review-pref-committee" class="text-slate-300 block font-semibold">---</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase text-slate-500 block font-sans">Representation Preference</span>
+                        <span id="review-pref-country" class="text-slate-300 block font-semibold">---</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] uppercase text-slate-500 block font-sans">Experience Level</span>
+                        <span id="review-experience" class="text-slate-300 block font-semibold">---</span>
+                    </div>
+                </div>
 
-                osc.connect(gain);
-                gain.connect(ctx.destination);
+                <div class="border-t border-[#e2b659]/10 pt-3">
+                    <span class="text-[10px] uppercase text-slate-500 block font-sans mb-1 font-serif-heading"></span>
+                    <div class="bg-[#0a1526] border border-[#e2b659]/5 rounded-sm p-4 max-h-48 overflow-y-auto no-scrollbar">
+                        <p id="review-statement" class="text-slate-300 text-sm font-serif-body italic leading-relaxed whitespace-pre-wrap">No event provided.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Allocation Setup -->
+            <div class="space-y-4 border-t border-[#e2b659]/10 pt-4">
+                <h5 class="text-xs uppercase text-[#e2b659] tracking-wider font-bold font-serif-heading">Decision & Committee Assignment</h5>
                 
-                osc.start();
-                osc.stop(ctx.currentTime + duration);
-            } catch (e) {
-                console.log("Audio node blocked by browser accessibility guidelines.");
-            }
-        }
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1 font-serif-heading">Assigned Council</label>
+                        <select id="edit-delegate-committee" class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-3 py-2.5 text-white focus:outline-none focus:border-[#e2b659] text-xs font-serif-body">
+                            <option value="UN General Assembly (Surface Currents)">UN General Assembly (Surface Currents)</option>
+                            <option value="Security Council (Abyssal Geopolitics)">Security Council (Abyssal Geopolitics)</option>
+                            <option value="Historical Crisis Committee">Historical Crisis Committee</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1 font-serif-heading">Assigned Country</label>
+                        <input type="text" id="edit-delegate-country" class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-3 py-2.5 text-white focus:outline-none focus:border-[#e2b659] text-xs font-serif-body" placeholder="e.g. United Kingdom" />
+                    </div>
+                    <div>
+                        <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1 font-serif-heading">Registration Status</label>
+                        <select id="edit-delegate-status" class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-3 py-2.5 text-white focus:outline-none focus:border-[#e2b659] text-xs font-serif-body">
+                            <option value="APPLIED">APPLIED</option>
+                            <option value="ALLOCATED">ALLOCATED</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
 
-        // Complete Repository of Dynamic Presenter Notes (One block per slide index)
-        const presenterNotesDatabase = [
-            `
-            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 01: Welcome Introduction</h4>
-            <h3 class="text-white font-serif text-base font-bold mb-2">Introduction & Warm Welcome</h3>
-            <p class="text-xs text-slate-300 leading-relaxed space-y-2">
-                • <strong>Core Objective:</strong> Introduce Sarah Jenkins' teaching persona. Show expertise, credibility, and classroom theme immediately. <br><br>
-                • <strong>Key Points to Mention:</strong> Walk through Oak Ridge Academy literature pathways, AP expectations, and focus on student analytical drive. <br><br>
-                • <strong>Presenter Cue:</strong> Maintain an engaging and structured posture. Start with a brief icebreaker summarizing adolescent rhetoric.
-            </p>
-            `,
-            `
-            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 02: Educator Story</h4>
-            <h3 class="text-white font-serif text-base font-bold mb-2">My Teaching Philosophy</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                • <strong>Core Objective:</strong> Define the "Analytical & Supportive" pedagogy. Emphasize digital resources supporting classic works. <br><br>
-                • <strong>Inclusivity Point:</strong> Explain how diverse analytical viewpoints validate complex text interpretation. <br><br>
-                • <strong>Rhetoric Practice:</strong> Talk about the active writing workshops held to prepare students for college-level argument formulations.
-            </p>
-            `,
-            `
-            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 03: Credentials & History</h4>
-            <h3 class="text-white font-serif text-base font-bold mb-2">Milestones & Core Metrics</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                • <strong>Boston & Williams Highlights:</strong> Mention specialized pedagogical research at BU and Magna ***** Laude focus in English Literature. <br><br>
-                • <strong>95% Passing Metric:</strong> Highly emphasize this score! It represents performance consistency that matches College Board rubrics. <br><br>
-                • <strong>Classroom Count:</strong> Speak about the value of managing larger cohorts without sacrificing personalized essay evaluations.
-            </p>
-            `,
-            `
-            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 04: Curricular Guidelines</h4>
-            <h3 class="text-white font-serif text-base font-bold mb-2">Weekly Operational Flow</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                • <strong>Friday Roadmaps:</strong> Ensure parents recognize that assignments are given out with absolute transparency to avoid weekend confusion. <br><br>
-                • <strong>Socratic Seminars:</strong> Talk about how these cultivate critical peer listening skills. Note that student feedback informs classroom grading scales. <br><br>
-                • <strong>Screencasts:</strong> Mention that personalized screencasts drastically increase student engagement and speed up structural corrections.
-            </p>
-            `,
-            `
-            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 05: Video Lecture Sample</h4>
-            <h3 class="text-white font-serif text-base font-bold mb-2">Hamlet & Core Engagement</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                • <strong>Video Context:</strong> Demonstrate multi-modal learning using the TED-Ed Hamlet video. Note that videos serve as high-impact visual summaries before parsing complex old English scenes. <br><br>
-                • <strong>Technological Literacy:</strong> Talk about combining online resources, classical books, and text analysis programs like Google Ngram in weekly tasks.
-            </p>
-            `,
-            `
-            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 06: Student Work Showcase</h4>
-            <h3 class="text-white font-serif text-base font-bold mb-2">10-Image Exhibition Catalog</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                • <strong>Core Showcase Objective:</strong> This gallery proves that students do more than memorize text; they engage in hands-on creative mapping. <br><br>
-                • <strong>Key Exhibits:</strong> Discuss the visual layout examples, Socratic logs, annotated files, student study sheets, and Shakespeare cover boards. <br><br>
-                • <strong>Takeaway:</strong> These physical portfolios serve as evidence of the rigor and creativity demanded by our AP literature curriculum.
-            </p>
-            `,
-            `
-            <h4 class="text-brand-accent text-xs font-mono font-bold uppercase tracking-widest mb-1">Slide 07: Direct Contact Form</h4>
-            <h3 class="text-white font-serif text-base font-bold mb-2">Formspree Integration & Outreach</h3>
-            <p class="text-xs text-slate-300 leading-relaxed">
-                • <strong>Connecting Details:</strong> Walk through our official email address, phone extensions, and Instagram account. <br><br>
-                • <strong>Instagram Handle:</strong> Highlight @sjenkins.lit.seminar as a hub for student reading goals and study infographics. <br><br>
-                • <strong>Form Details:</strong> Demonstrate the form dispatch overlay. Emphasize that responses are typically sent out within 24 hours.
-            </p>
-            `
-        ];
+            <div class="flex gap-3 pt-2">
+                <button onclick="closeAllocationModal()" class="w-1/3 border border-[#e2b659]/30 text-white py-2.5 rounded-sm hover:bg-[#e2b659]/10 transition-colors text-sm font-serif-heading tracking-wider">Cancel</button>
+                <button onclick="saveDelegateAllocation()" class="w-2/3 bg-[#e2b659] text-[#050b14] py-2.5 rounded-sm font-bold hover:bg-white transition-colors text-sm font-serif-heading tracking-wider gold-glow">Save Assignment & Update Status</button>
+            </div>
+        </div>
+    </div>
 
-        // Data block for 10-picture student work catalog carousel
-        const galleryDatabase = [
-            {
-                tag: "EXHIBIT 01 // STUDY LOGS",
-                title: "Annotated Hamlet Study Folders",
-                desc: "High school students highlight specific thematic arcs in Shakespeare text, demonstrating outstanding original critical commentary in margin details.",
-                img: "https://placehold.co/600x450/0d1321/0d9488?text=Annotated+Hamlet+Folders"
-            },
-            {
-                tag: "EXHIBIT 02 // PRESENTATION ARCS",
-                title: "Weekly Socratic Debate Outlines",
-                desc: "Visual cards detailing rhetoric methods, structural counterarguments, and textual evidence prepared for Friday argumentative workshops.",
-                img: "https://placehold.co/600x450/0f172a/f59e0b?text=Socratic+Debate+Outlines"
-            },
-            {
-                tag: "EXHIBIT 03 // VISUAL GRAPHICS",
-                title: "Character Perspective Mapping Boards",
-                desc: "Students design colored flow charts tracing character relationships and internal motivations in modern classical plays.",
-                img: "https://placehold.co/600x450/1e293b/6366f1?text=Perspective+Mapping+Boards"
-            },
-            {
-                tag: "EXHIBIT 04 // STUDENT REPRINTS",
-                title: "Self-Published Literature Journals",
-                desc: "A compiled physical anthology showcasing poetry, descriptive essays, and analytical feedback curated by active English scholars.",
-                img: "https://placehold.co/600x450/0d1321/ec4899?text=Student+Literature+Journals"
-            },
-            {
-                tag: "EXHIBIT 05 // DIGITAL PORTFOLIOS",
-                title: "Interactive Storytelling Blogs",
-                desc: "Original student web mockups containing chapter summaries, narrative analysis, and creative contemporary rewrites.",
-                img: "https://placehold.co/600x450/0f172a/10b981?text=Digital+Story+Blogs"
-            },
-            {
-                tag: "EXHIBIT 06 // HISTORICAL ANALYSIS",
-                title: "Contextual World Timeline Posters",
-                desc: "Research timelines mapping historic moments like the Enlightenment directly alongside relevant literature movements.",
-                img: "https://placehold.co/600x450/1e293b/f59e0b?text=Contextual+Timeline+Posters"
-            },
-            {
-                tag: "EXHIBIT 07 // GROUP CONSTRUCTS",
-                title: "The Great Gatsby Presentation Displays",
-                desc: "Collaborative models depicting architectural symbology and wealth distributions across Fitzgerald's East Egg and West Egg.",
-                img: "https://placehold.co/600x450/0d1321/3b82f6?text=Gatsby+Symbology+Displays"
-            },
-            {
-                tag: "EXHIBIT 08 // CREATIVE PORTRAITURE",
-                title: "Classic Cover Art Renditions",
-                desc: "Contemporary, stylized cover design assignments analyzing modern motifs through visual graphic elements.",
-                img: "https://placehold.co/600x450/0f172a/a855f7?text=Classic+Cover+Art+Renditions"
-            },
-            {
-                tag: "EXHIBIT 09 // RESEARCH WORK",
-                title: "AP Argumentative Thesis Drafts",
-                desc: "Classroom essay sheets mapping complex thesis claims, literary evidence, and counterarguments under timed exam guidelines.",
-                img: "https://placehold.co/600x450/1e293b/0d9488?text=Argumentative+Thesis+Drafts"
-            },
-            {
-                tag: "EXHIBIT 10 // GROUP DEBATES",
-                title: "Socratic Assembly Discussion Circles",
-                desc: "Photos documenting high school literature seminars in a structured circle to discuss analytical insights and thesis points.",
-                img: "https://placehold.co/600x450/0d1321/f59e0b?text=Socratic+Assembly+Seminars"
-            }
-        ];
+    <!-- Admin Password Login Modal -->
+    <div id="admin-login-modal" class="fixed inset-0 z-[60] bg-[#050b14]/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-[#0a1526] w-full max-w-sm rounded-sm border border-[#e2b659]/30 p-6 space-y-6 gold-glow-box">
+            <div class="text-center">
+                <span class="text-[#e2b659] font-serif-heading text-xs tracking-widest font-bold uppercase block mb-1">Authorization Required</span>
+                <h4 class="font-serif-heading text-xl font-bold text-white tracking-wider">Secretariat Portal</h4>
+            </div>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] uppercase text-slate-400 font-bold mb-1.5 font-serif-heading">Enter Coordinator Passcode</label>
+                    <input type="password" id="admin-passcode-input" class="w-full bg-[#050b14] border border-[#e2b659]/20 rounded-sm px-4 py-2.5 text-white focus:outline-none focus:border-[#e2b659] font-mono text-center tracking-widest text-lg" placeholder="••••••••" />
+                    <p id="first-time-prompt" class="text-[10px] text-[#e2b659] mt-2 text-center italic">First launch? Use default passcode: <span class="font-bold">LAMUN2026</span></p>
+                </div>
+            </div>
 
-        let currentGalleryIndex = 0;
+            <div class="flex gap-3">
+                <button onclick="closeAdminLoginModal()" class="w-1/3 border border-[#e2b659]/30 text-white py-2 rounded-sm hover:bg-[#e2b659]/10 transition-colors text-sm font-serif-heading">Cancel</button>
+                <button onclick="verifyAdminPasscode()" class="w-2/3 bg-[#e2b659] text-[#050b14] py-2 rounded-sm font-bold hover:bg-white transition-colors text-sm font-serif-heading">Verify Passcode</button>
+            </div>
+        </div>
+    </div>
 
-        // Initialize Dynamic Presentation Markers & Load Initial Slides
-        window.onload = function() {
-            instantiateNavigationDots();
-            instantiateGalleryDots();
-            renderSlide(0);
-            updateGalleryDisplay();
+    <!-- Delegate Customized Dashboard Portal -->
+    <div id="portal-overlay" class="fixed inset-0 z-50 bg-[#050b14]/95 backdrop-blur-md hidden overflow-y-auto p-4 md:p-8">
+        <div class="max-w-4xl mx-auto space-y-8 my-8">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-[#e2b659]/20 pb-6">
+                <div>
+                    <span class="text-[#e2b659] font-serif-heading text-xs tracking-widest font-bold uppercase">Secretariat Command Center</span>
+                    <h1 class="font-serif-heading text-3xl md:text-4xl font-bold text-white tracking-wide">Delegate Dashboard</h1>
+                </div>
+                <div class="flex gap-4">
+    
+    <button onclick="withdrawRegistration()" 
+    class="border border-red-500/30 text-red-400 px-6 py-2.5 rounded-sm font-serif-heading font-bold hover:bg-red-500/10 transition-all duration-300 text-sm">
+        Withdraw Registration
+    </button>
+
+    <button onclick="closePortalOverlay()" class="border border-[#e2b659]/30 text-slate-300 px-6 py-2.5 rounded-sm font-serif-heading font-bold hover:bg-[#e2b659]/10 transition-all duration-300 text-sm">
+        Close Portal
+    </button>
+
+</div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Profile / Allocations Column -->
+                <div class="space-y-6 md:col-span-1">
+                    <div class="bg-[#0a1526] border border-[#e2b659]/30 rounded-sm p-6 relative overflow-hidden gold-glow-box">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-[#e2b659]/5 rounded-bl-full"></div>
+                        <h3 class="font-serif-heading text-xs text-[#e2b659] tracking-widest font-bold uppercase mb-4">Credentials</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-sans block">Delegate Name</span>
+                                <span id="portal-name" class="text-white font-serif-heading font-bold text-lg">---</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-sans block">Institution</span>
+                                <span id="portal-school" class="text-slate-300 font-serif-body text-sm block">---</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-sans block">Application Status</span>
+                                <span id="portal-status" class="inline-flex items-center gap-1 text-xs bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mt-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
+                                    APPLIED
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-[#0a1526] border border-[#e2b659]/30 rounded-sm p-6 relative overflow-hidden">
+                        <h3 class="font-serif-heading text-xs text-[#e2b659] tracking-widest font-bold uppercase mb-4">Assignment Overview</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-sans block">Allocated Council</span>
+                                <span id="portal-committee" class="text-white font-serif-heading font-bold text-md block">Pending allocation...</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] uppercase tracking-wider text-slate-500 font-sans block">Assigned Nation Representation</span>
+                                <span id="portal-country" class="text-white font-serif-body text-md tracking-wider flex items-center gap-1">Pending assignment...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Prep resources & Checklist Column -->
+                <div class="md:col-span-2 space-y-6">
+                    <div class="bg-[#0a1526] border border-[#e2b659]/20 rounded-sm p-8 space-y-6">
+                        <h2 class="font-serif-heading text-2xl font-bold text-white">Your Preparation Kit</h2>
+                        <p class="font-serif-body text-slate-300 text-sm leading-relaxed">
+                            Welcome to the abyss, delegate. To aid your descent into international law and diplomatic maneuvers, our Secretariat has customized the following preparation guidelines specifically for you.
+                        </p>
+
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="border border-[#e2b659]/10 bg-[#050b14] p-4 rounded-sm flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full border border-[#e2b659]/30 flex items-center justify-center flex-shrink-0 text-[#e2b659]">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-serif-heading text-sm text-white font-semibold">Rules of Procedure (RoP)</h4>
+                                    <p class="text-[11px] text-slate-500">Core guidelines detailing formal oceanic debate rules.</p>
+                                    <button onclick="alertModal('Downloading customized Rules of Procedure document directly from Secretariat cloud storage...', 'Document Transfer')" class="text-[#e2b659] text-xs font-semibold inline-block hover:underline mt-1 text-left font-serif-heading">Download PDF</button>
+                                </div>
+                            </div>
+
+                            <div class="border border-[#e2b659]/10 bg-[#050b14] p-4 rounded-sm flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full border border-[#e2b659]/30 flex items-center justify-center flex-shrink-0 text-[#e2b659]">
+                                    <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/></svg>
+                                </div>
+                                <div class="space-y-1">
+                                    <h4 class="font-serif-heading text-sm text-white font-semibold">Background Guide</h4>
+                                    <p class="text-[11px] text-slate-500">Comprehensive study material regarding the core agenda.</p>
+                                    <button onclick="alertModal('Locating your customized Background Guide materials from archives...', 'Document Access')" class="text-[#e2b659] text-xs font-semibold inline-block hover:underline mt-1 text-left font-serif-heading">Read Materials</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="border-t border-[#e2b659]/10 pt-6">
+                            <h3 class="font-serif-heading text-sm text-white font-bold uppercase tracking-wider mb-4">Preparation Checklist</h3>
+                            <div class="space-y-3 font-serif-body text-sm">
+                                <label class="flex items-center gap-3 cursor-pointer text-slate-300 hover:text-white">
+                                    <input type="checkbox" class="accent-[#e2b659] rounded-sm w-4 h-4 bg-[#050b14] border-slate-700" />
+                                    <span>Read the background guide thoroughly</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer text-slate-300 hover:text-white">
+                                    <input type="checkbox" class="accent-[#e2b659] rounded-sm w-4 h-4 bg-[#050b14] border-slate-700" />
+                                    <span>Draft and print the Position Paper representing your assigned country</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer text-slate-300 hover:text-white">
+                                    <input type="checkbox" class="accent-[#e2b659] rounded-sm w-4 h-4 bg-[#050b14] border-slate-700" />
+                                    <span>Review Rules of Procedure rules to manage formal speech requests</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert / System Message -->
+    <div id="custom-alert-modal" class="fixed inset-0 z-[60] bg-[#050b14]/90 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="bg-[#0a1526] w-full max-w-md rounded-sm border border-[#e2b659]/30 p-6 text-center space-y-6 gold-glow-box">
+            <div class="w-16 h-16 rounded-full border border-[#e2b659]/30 bg-[#050b14] flex items-center justify-center mx-auto text-[#e2b659] animate-float">
+                <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+            </div>
+            <div>
+                <h4 id="custom-alert-title" class="font-serif-heading text-lg font-bold text-white tracking-wider">System Message</h4>
+                <p id="custom-alert-message" class="font-serif-body text-slate-300 text-sm mt-2 leading-relaxed"></p>
+            </div>
+            <button onclick="closeAlertModal()" class="w-full bg-[#e2b659] text-[#050b14] py-2.5 rounded-sm font-serif-heading font-bold tracking-wide hover:bg-white transition-all">
+                Dismiss Notice
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#02050a] py-12 border-t border-[#e2b659]/20 relative overflow-hidden">
+        <div class="absolute bottom-[-50%] left-1/2 -translate-x-1/2 w-full max-w-2xl h-64 bg-[#e2b659] opacity-[0.03] blur-3xl rounded-full pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex items-center gap-3">
+                <svg class="w-6 h-6 text-[#e2b659]" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span class="font-serif-heading font-bold text-xl tracking-widest text-white">LAMUN <span class="text-[#e2b659]">26</span></span>
+            </div>
+            
+            <div class="text-slate-500 font-serif-body text-sm text-center md:text-left">
+                &copy; <span id="year"></span> Lam Son Model United Nations. All rights reserved.
+            </div>
+            
+            <div class="flex gap-6 font-serif-body text-sm">
+                <a href="#" class="text-slate-400 hover:text-[#e2b659] transition-colors">Instagram</a>
+                <a href="https://facebook.com/lamun" target="_blank" rel="noopener noreferrer" class="text-slate-400 hover:text-[#e2b659] transition-colors">Facebook</a>
+                <a href="#contact" class="text-slate-400 hover:text-[#e2b659] transition-colors">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, getDocs, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global dynamic registry to prevent HTML injection string escaping issues
+        window.allDelegates = {};
+
+        // Config variables
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'lamun26-env';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {
+            apiKey: "placeholder",
+            authDomain: "placeholder.firebaseapp.com",
+            projectId: "placeholder",
+            storageBucket: "placeholder.appspot.com",
+            marginSenderId: "placeholder",
+            appId: "placeholder"
         };
 
-        // Render Slide Indicators
-        function instantiateNavigationDots() {
-            const container = document.getElementById('slide-indicators-container');
-            container.innerHTML = '';
-            for (let i = 0; i < totalSlides; i++) {
-                const dot = document.createElement('button');
-                dot.className = `w-2 h-2 rounded-full transition-all duration-300 ${i === 0 ? 'bg-brand-accent w-4' : 'bg-brand-800'}`;
-                dot.onclick = () => goToSlide(i);
-                dot.title = `Go to Slide ${i + 1}`;
-                container.appendChild(dot);
-            }
-        }
+        let db = null;
+        let auth = null;
+        let currentUser = null;
+        let delegateProfile = null;
+        let currentRegStep = 1;
+        let useSimulationMode = false;
+        
+        // Active password config (synchronized dynamically from Firestore or local storage)
+        let activeAdminPasscode = 'LAMUN2026'; 
 
-        // Render Active Mini-Gallery Indicators
-        function instantiateGalleryDots() {
-            const container = document.getElementById('gallery-indicator-dots');
-            container.innerHTML = '';
-            galleryDatabase.forEach((img, index) => {
-                const dot = document.createElement('div');
-                dot.className = `w-1.5 h-1.5 rounded-full transition-all duration-300 ${index === 0 ? 'bg-brand-emerald w-3' : 'bg-brand-800'}`;
-                container.appendChild(dot);
-            });
-        }
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Render Slide & Presenter Notes Content
-        function renderSlide(index) {
-            // Update Active Indicators Class
-            const slides = document.querySelectorAll('.slide');
-            slides.forEach((slide, idx) => {
-                if (idx === index) {
-                    slide.classList.add('active');
-                } else {
-                    slide.classList.remove('active');
+        // Local Simulated Database inside LocalStorage to fallback elegantly if Firebase keys are placeholders
+        const localSimulatedDb = {
+            getDoc: (key) => {
+                const data = localStorage.getItem(key);
+                return { exists: () => !!data, data: () => JSON.parse(data) };
+            },
+            setDoc: (key, val) => {
+                localStorage.setItem(key, JSON.stringify(val));
+            },
+            getDocs: () => {
+                // Populate starting mock database so that coordinator workspace looks amazing out-of-the-box!
+                let list = JSON.parse(localStorage.getItem('lamun26_delegates_list') || '[]');
+                if (list.length === 0) {
+                    list = [ ];
+                    localStorage.setItem('lamun26_delegates_list', JSON.stringify(list));
                 }
-            });
-
-            // Update Progress Bar Percentage
-            const progressBar = document.getElementById('slide-progress-bar');
-            const percent = ((index + 1) / totalSlides) * 100;
-            progressBar.style.width = `${percent}%`;
-
-            // Update Bottom Dots
-            const indicators = document.getElementById('slide-indicators-container').children;
-            for (let i = 0; i < indicators.length; i++) {
-                if (i === index) {
-                    indicators[i].className = 'w-2 h-2 rounded-full transition-all duration-300 bg-brand-accent w-4';
+                return list;
+            },
+            updateDoc: (uid, updatedData) => {
+                let list = JSON.parse(localStorage.getItem('lamun26_delegates_list') || '[]');
+                const idx = list.findIndex(d => d.uid === uid);
+                if (idx !== -1) {
+                    list[idx] = { ...list[idx], ...updatedData };
                 } else {
-                    indicators[i].className = 'w-2 h-2 rounded-full transition-all duration-300 bg-brand-800';
+                    list.push(updatedData);
+                }
+                localStorage.setItem('lamun26_delegates_list', JSON.stringify(list));
+            }
+        };
+
+        async function initAuth() {
+            try {
+                // Determine if we should trigger Simulated Fallback Mode
+                if (firebaseConfig.apiKey === "placeholder" || firebaseConfig.projectId === "placeholder") {
+                    throw new Error("Using default placeholder configuration keys. Switching to Local Simulation Fallback.");
+                }
+
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    const userCredential = await signInWithCustomToken(auth, __initial_auth_token);
+                    currentUser = userCredential.user;
+                } else {
+                    const userCredential = await signInAnonymously(auth);
+                    currentUser = userCredential.user;
+                }
+                
+                if (currentUser) {
+                    await checkExistingRegistration(currentUser.uid);
+                    await loadPasscodeFromCloud();
+                }
+            } catch (error) {
+                console.warn("Switching to Local Simulated Cloud Database. Reason:", error.message);
+                useSimulationMode = true;
+                
+                // Set up local simulated user identity
+                let simUid = localStorage.getItem('lamun26_simulated_uid');
+                if (!simUid) {
+                    simUid = 'delegate-sim-' + Math.random().toString(36).substring(2, 9);
+                    localStorage.setItem('lamun26_simulated_uid', simUid);
+                }
+                currentUser = { uid: simUid };
+                
+                // Load simulated passcode configuration
+                const savedPass = localStorage.getItem('lamun26_admin_passcode');
+                if (savedPass) {
+                    activeAdminPasscode = savedPass;
+                }
+                
+                // Load local profile if registered
+                const savedProfile = localSimulatedDb.getDoc('lamun_reg_' + simUid);
+                if (savedProfile.exists()) {
+                    delegateProfile = savedProfile.data();
+                    updateUIForRegisteredUser();
                 }
             }
-
-            // Sync Presenter Notes Text & Counter Trackers
-            document.getElementById('presenter-notes-body').innerHTML = presenterNotesDatabase[index];
-            document.getElementById('notes-slide-tracker').textContent = `Slide ${index + 1} of ${totalSlides}`;
         }
 
-        // Core Slide Navigation
-        function navigateSlide(direction) {
-            currentSlideIndex += direction;
-            if (currentSlideIndex < 0) {
-                currentSlideIndex = totalSlides - 1; // Slide wrap-around back to end
-            } else if (currentSlideIndex >= totalSlides) {
-                currentSlideIndex = 0; // Slide wrap-around to beginning
-            }
-            
-            // Audio Feedback Chime
-            playChimeEffect(440 + (currentSlideIndex * 40), "triangle", 0.15);
-            renderSlide(currentSlideIndex);
-        }
-
-        // Jump Directly to Specific Slide
-        function goToSlide(index) {
-            currentSlideIndex = index;
-            playChimeEffect(520, "sine", 0.1);
-            renderSlide(currentSlideIndex);
-        }
-
-        // Handles automated slideshow loop logic with shortened 3-second cycle
-        function toggleAutoplay() {
-            isAutoplayActive = !isAutoplayActive;
-            const btn = document.getElementById('autoplay-btn');
-            const text = document.getElementById('autoplay-text');
-            const icon = document.getElementById('autoplay-icon');
-
-            if (isAutoplayActive) {
-                btn.className = "flex items-center space-x-2 bg-brand-emerald text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all shadow-md shadow-brand-emerald/20";
-                text.textContent = "Looping Active";
-                icon.className = "fa-solid fa-arrows-spin animate-spin";
-                
-                playChimeEffect(587.33, "sine", 0.2);
-                
-                autoplayInterval = setInterval(() => {
-                    navigateSlide(1);
-                }, 3000); // Transitions automatically every 3 seconds
-            } else {
-                btn.className = "flex items-center space-x-2 bg-brand-800/80 hover:bg-brand-700 border border-brand-700/60 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all";
-                text.textContent = "Auto Play";
-                icon.className = "fa-solid fa-play text-brand-accent";
-                
-                playChimeEffect(349.23, "sawtooth", 0.15);
-                clearInterval(autoplayInterval);
+        async function checkExistingRegistration(userId) {
+            if (useSimulationMode || !userId) return;
+            try {
+                const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', userId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    delegateProfile = docSnap.data();
+                    updateUIForRegisteredUser();
+                }
+            } catch (error) {
+                console.error("Error retrieving existing application record:", error);
             }
         }
 
-        // Interactive Drawer Slide Animation Logic with Canvas Scaling
-        function toggleNotes() {
-            const drawer = document.getElementById('notes-drawer');
-            const toggleBtn = document.getElementById('notes-toggle-btn');
-            const viewportWrapper = document.getElementById('presentation-viewport-wrapper');
-            
-            isNotesDrawerOpen = !isNotesDrawerOpen;
-
-            if (isNotesDrawerOpen) {
-                // Apply visual state toggles for open sidebar
-                toggleBtn.className = "flex items-center space-x-2 bg-brand-accent text-[#090d16] border border-brand-accent px-3 py-1.5 rounded-lg text-xs font-bold transition-all shadow-md shadow-brand-accent/20";
-                
-                // Sidebar open transitions
-                drawer.classList.remove('w-0', 'opacity-0');
-                drawer.classList.add('w-80', 'opacity-100');
-                
-                // Scale viewport wrapper card down to standard max-width configuration side-by-side
-                viewportWrapper.classList.remove('max-w-6xl');
-                viewportWrapper.classList.add('max-w-4xl');
-
-                playChimeEffect(783.99, "sine", 0.2);
-            } else {
-                // Remove visual state toggles
-                toggleBtn.className = "flex items-center space-x-2 bg-brand-800/80 hover:bg-brand-700 border border-brand-700/60 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all";
-                
-                // Sidebar close transitions
-                drawer.classList.remove('w-80', 'opacity-100');
-                drawer.classList.add('w-0', 'opacity-0');
-                
-                // Expand viewport wrapper card back out to presentation projection width
-                viewportWrapper.classList.remove('max-w-4xl');
-                viewportWrapper.classList.add('max-w-6xl');
-
-                playChimeEffect(659.25, "sine", 0.15);
+        async function loadPasscodeFromCloud() {
+            if (useSimulationMode) return;
+            try {
+                const adminRef = doc(db, 'artifacts', appId, 'public', 'data', 'config', 'admin');
+                const docSnap = await getDoc(adminRef);
+                if (docSnap.exists() && docSnap.data().passcode) {
+                    activeAdminPasscode = docSnap.data().passcode;
+                    // If changed from default, remove default guidance text
+                    if (activeAdminPasscode !== 'LAMUN2026') {
+                        document.getElementById('first-time-prompt').classList.add('hidden');
+                    }
+                } else {
+                    // Create secure blueprint document to allow host to configure it easily
+                    await setDoc(adminRef, { passcode: 'LAMUN2026' });
+                }
+            } catch (err) {
+                console.log("Database passcode loading fallback:", err);
             }
         }
 
-        // Multi-image gallery slideshow carousel controller
-        function navigateGallery(direction) {
-            currentGalleryIndex += direction;
-            if (currentGalleryIndex < 0) {
-                currentGalleryIndex = galleryDatabase.length - 1;
-            } else if (currentGalleryIndex >= galleryDatabase.length) {
-                currentGalleryIndex = 0;
+        function openRegistrationModal(suggestedCommittee = null) {
+            currentRegStep = 1;
+            document.getElementById('reg-form').reset();
+            document.getElementById('registration-overlay').classList.remove('hidden');
+            document.getElementById('reg-loader').classList.add('hidden');
+            document.getElementById('reg-success').classList.add('hidden');
+            nextRegStep(1);
+
+            if (suggestedCommittee) {
+                document.getElementById('reg-committee').value = suggestedCommittee;
             }
-            
-            // Localized Gallery sound cue
-            playChimeEffect(330, "triangle", 0.08);
-            updateGalleryDisplay();
         }
 
-        // Refresh and display active gallery image details
-        function updateGalleryDisplay() {
-            const currentItem = galleryDatabase[currentGalleryIndex];
-            const imgElement = document.getElementById('gallery-image-element');
-            const tagElement = document.getElementById('gallery-image-tag');
-            const titleElement = document.getElementById('gallery-image-title');
-            const descElement = document.getElementById('gallery-current-description');
-            const counterElement = document.getElementById('gallery-counter');
+        function closeRegistrationModal() {
+            document.getElementById('registration-overlay').classList.add('hidden');
+        }
 
-            // Quick image fade transition
-            imgElement.style.opacity = 0.3;
-            
-            setTimeout(() => {
-                imgElement.src = currentItem.img;
-                tagElement.textContent = currentItem.tag;
-                titleElement.textContent = currentItem.title;
-                descElement.innerHTML = `<strong>Exhibit ${currentGalleryIndex + 1}:</strong> ${currentItem.desc}`;
-                counterElement.textContent = `${currentGalleryIndex + 1} / ${galleryDatabase.length}`;
-                
-                // Update dots indicators active index
-                const dots = document.getElementById('gallery-indicator-dots').children;
-                for (let i = 0; i < dots.length; i++) {
-                    if (i === currentGalleryIndex) {
-                        dots[i].className = "w-1.5 h-1.5 rounded-full transition-all duration-300 bg-brand-emerald w-3";
-                    } else {
-                        dots[i].className = "w-1.5 h-1.5 rounded-full transition-all duration-300 bg-brand-800";
+        // Multi-Step Form Stage progression with explicit form step validations
+        function nextRegStep(step) {
+            // Validate step 1 parameters before advancing forward
+            if (step > currentRegStep) {
+                if (currentRegStep === 1) {
+                    const name = document.getElementById('reg-name').value.trim();
+                    const email = document.getElementById('reg-email').value.trim();
+                    const school = document.getElementById('reg-school').value.trim();
+
+                    if (!name || !email || !school) {
+                        alertModal("Please fill in all details (Name, Email, School) to continue.", "Incomplete Stage");
+                        return;
+                    }
+                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailRegex.test(email)) {
+                        alertModal("Please enter a valid email address.", "Invalid Format");
+                        return;
                     }
                 }
-                imgElement.style.opacity = 1;
-            }, 100);
+                // Validate step 2 country preference before advancing
+                if (currentRegStep === 2) {
+                    const country = document.getElementById('reg-country').value.trim();
+                    if (!country) {
+                        alertModal("Please input your country preferences to proceed.", "Incomplete Stage");
+                        return;
+                    }
+                }
+            }
+
+            currentRegStep = step;
+            document.getElementById('reg-step-1').classList.add('hidden');
+            document.getElementById('reg-step-2').classList.add('hidden');
+            document.getElementById('reg-step-3').classList.add('hidden');
+
+            document.getElementById('step-1-label').className = 'text-slate-500';
+            document.getElementById('step-2-label').className = 'text-slate-500';
+            document.getElementById('step-3-label').className = 'text-slate-500';
+
+            document.getElementById(`reg-step-${step}`).classList.remove('hidden');
+            document.getElementById(`step-${step}-label`).className = 'text-[#e2b659] font-bold';
         }
 
-        // Fullscreen Mode Controller
-        function toggleFullscreen() {
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().then(() => {
-                    playChimeEffect(880, "sine", 0.25);
-                }).catch(err => {
-                    console.log(`Error attempting to enable fullscreen: ${err.message}`);
-                });
-            } else {
-                document.exitFullscreen();
-                playChimeEffect(587.33, "sine", 0.15);
-            }
-        }
-
-        // Native Presentation Keyboard Event Listeners
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === 'Space') {
-                e.preventDefault();
-                navigateSlide(1);
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                navigateSlide(-1);
-            } else if (e.key === 'Escape') {
-                if (isNotesDrawerOpen) toggleNotes();
-            }
-        });
-
-        // Touchscreen Swipe Gestures Configuration
-        let touchstartX = 0;
-        let touchendX = 0;
-        const gestureZone = document.getElementById('presentation-viewport-wrapper');
-
-        gestureZone.addEventListener('touchstart', function(event) {
-            touchstartX = event.changedTouches[0].screenX;
-        }, false);
-
-        gestureZone.addEventListener('touchend', function(event) {
-            touchendX = event.changedTouches[0].screenX;
-            handleSwipeGesture();
-        }, false);
-
-        function handleSwipeGesture() {
-            if (touchendX < touchstartX - 50) {
-                navigateSlide(1); // Swipe left loads next slide
-            }
-            if (touchendX > touchstartX + 50) {
-                navigateSlide(-1); // Swipe right loads previous slide
-            }
-        }
-
-        // Formspree API Submission Mechanics (Ensures standard AJAX dispatches instead of opening standard Formspree page redirections)
-        function submitFormspree(event) {
+        async function handleRegistrationSubmit(event) {
             event.preventDefault();
-            const form = event.target;
-            const successOverlay = document.getElementById('form-success-overlay');
-            const errorOverlay = document.getElementById('form-error-overlay');
-            const errorMsgSpan = document.getElementById('error-overlay-message');
 
-            const formData = new FormData(form);
+            if (!currentUser) {
+                alertModal("Connecting to secure server channels. Try again in a moment.", "Connection Buffering");
+                return;
+            }
+
+            // Final comprehensive client-side form safety verification
+            const name = document.getElementById('reg-name').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const school = document.getElementById('reg-school').value.trim();
+            const committeeCode = document.getElementById('reg-committee').value;
+            const countryPref = document.getElementById('reg-country').value.trim();
+            const statement = document.getElementById('reg-statement').value.trim();
             
-            // Build the dynamic URL using the configured ID
-            const endpoint = FORMSPREE_ID && FORMSPREE_ID !== "placeholder" 
-                ? `https://formspree.io/f/${FORMSPREE_ID}` 
-                : "https://formspree.io/f/placeholder";
+            // Acquire experience value cleanly from radio buttons
+            const experienceElement = document.querySelector('input[name="exp"]:checked');
+            const experience = experienceElement ? experienceElement.value : "Beginner";
 
-            fetch(endpoint, {
-                method: "POST",
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    successOverlay.classList.remove('hidden');
-                    playChimeEffect(523.25, "sine", 0.4);
-                    form.reset();
+            if (!name || !email || !school || !countryPref || !statement) {
+                alertModal("Please review and complete all registration steps carefully.", "Validation Error");
+                return;
+            }
+
+            document.getElementById('reg-loader').classList.remove('hidden');
+
+            let committeeName = "";
+            if (committeeCode === "UNGA") committeeName = "UN General Assembly (Surface Currents)";
+            else if (committeeCode === "UNSC") committeeName = "Security Council (Abyssal Geopolitics)";
+            else if (committeeCode === "HCC") committeeName = "Historical Crisis Committee";
+
+            delegateProfile = {
+                uid: currentUser.uid,
+                name,
+                email,
+                school,
+                committeeName,
+                country: countryPref,
+                statement,
+                experience,
+                status: "APPLIED",
+                registeredAt: new Date().toISOString()
+            };
+
+            try {
+                if (useSimulationMode) {
+                    // Simulate Database Latency
+                    await new Promise(res => setTimeout(res, 800));
+                    localSimulatedDb.setDoc('lamun_reg_' + currentUser.uid, delegateProfile);
+                    localSimulatedDb.updateDoc(currentUser.uid, delegateProfile);
                 } else {
-                    errorMsgSpan.textContent = "Formspree returned an error status: " + response.status;
-                    errorOverlay.classList.remove('hidden');
-                    playChimeEffect(220, "sawtooth", 0.3);
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', currentUser.uid);
+                    await setDoc(docRef, delegateProfile);
                 }
-            }).catch(error => {
-                errorMsgSpan.textContent = "A connection error occurred. Please check your network.";
-                errorOverlay.classList.remove('hidden');
-                playChimeEffect(220, "sawtooth", 0.3);
+
+                document.getElementById('reg-loader').classList.add('hidden');
+                document.getElementById('success-user-name').textContent = name;
+                document.getElementById('reg-success').classList.remove('hidden');
+
+                updateUIForRegisteredUser();
+            } catch (err) {
+                document.getElementById('reg-loader').classList.add('hidden');
+                console.error("Cloud synchronisation failure:", err);
+                alertModal("Could not write credentials to secure database. Check network state.", "Synchronization Interrupted");
+            }
+        }
+
+        function updateUIForRegisteredUser() {
+            if (!delegateProfile) return;
+
+            const mainRegBtn = document.getElementById('nav-register-btn');
+            const mobileRegBtn = document.getElementById('mobile-register-btn');
+            const heroBtn = document.getElementById('hero-dive-btn');
+
+            if (mainRegBtn) {
+                mainRegBtn.textContent = "My Portal";
+                mainRegBtn.onclick = viewDelegatePortal;
+                mainRegBtn.classList.add('border', 'border-[#e2b659]', 'gold-glow');
+            }
+            if (mobileRegBtn) {
+                mobileRegBtn.textContent = "My Portal";
+                mobileRegBtn.onclick = () => { toggleMenu(); viewDelegatePortal(); };
+            }
+            if (heroBtn) {
+                heroBtn.textContent = "Open Dashboard";
+                heroBtn.onclick = viewDelegatePortal;
+            }
+        }
+
+        function viewDelegatePortal() {
+            if (!delegateProfile) {
+                openRegistrationModal();
+                return;
+            }
+
+            document.getElementById('portal-name').textContent = delegateProfile.name;
+            document.getElementById('portal-school').textContent = delegateProfile.school;
+            document.getElementById('portal-committee').textContent = delegateProfile.committeeName || "Pending allocation...";
+            document.getElementById('portal-country').textContent = delegateProfile.country || "Pending assignment...";
+            
+            const statusBadge = document.getElementById('portal-status');
+            statusBadge.className = delegateProfile.status === "ALLOCATED" 
+                ? "inline-flex items-center gap-1 text-xs bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mt-1"
+                : "inline-flex items-center gap-1 text-xs bg-amber-500/10 border border-amber-500/30 text-amber-400 font-bold px-2 py-0.5 rounded-sm uppercase tracking-wider mt-1";
+            
+            statusBadge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${delegateProfile.status === 'ALLOCATED' ? 'bg-emerald-400' : 'bg-amber-400'} animate-pulse"></span> ${delegateProfile.status || 'APPLIED'}`;
+
+            document.getElementById('portal-overlay').classList.remove('hidden');
+        }
+
+        function closePortalOverlay() {
+            document.getElementById('portal-overlay').classList.add('hidden');
+        }
+        async function withdrawRegistration() {
+    if (!delegateProfile || !currentUser) return;
+
+    const confirmed = confirm(
+        "Are you sure you want to withdraw your registration from LAMUN 26? This action cannot be undone."
+    );
+
+    if (!confirmed) return;
+
+    try {
+
+        if (useSimulationMode) {
+
+            localStorage.removeItem('lamun_reg_' + currentUser.uid);
+
+            let list = JSON.parse(localStorage.getItem('lamun26_delegates_list') || '[]');
+
+            list = list.filter(delegate => delegate.uid !== currentUser.uid);
+
+            localStorage.setItem('lamun26_delegates_list', JSON.stringify(list));
+
+        } else {
+
+            const { deleteDoc } = await import(
+                "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"
+            );
+
+            const docRef = doc(
+                db,
+                'artifacts',
+                appId,
+                'public',
+                'data',
+                'registrations',
+                currentUser.uid
+            );
+
+            await deleteDoc(docRef);
+        }
+
+        delegateProfile = null;
+
+        const mainRegBtn = document.getElementById('nav-register-btn');
+        const mobileRegBtn = document.getElementById('mobile-register-btn');
+        const heroBtn = document.getElementById('hero-dive-btn');
+
+        if (mainRegBtn) {
+            mainRegBtn.textContent = "Register";
+            mainRegBtn.onclick = () => openRegistrationModal();
+            mainRegBtn.classList.remove('border', 'border-[#e2b659]', 'gold-glow');
+        }
+
+        if (mobileRegBtn) {
+            mobileRegBtn.textContent = "Register";
+            mobileRegBtn.onclick = () => {
+                toggleMenu();
+                openRegistrationModal();
+            };
+        }
+
+        if (heroBtn) {
+            heroBtn.textContent = "Begin Your Descent";
+            heroBtn.onclick = () => openRegistrationModal();
+        }
+
+        closePortalOverlay();
+
+        alertModal(
+            "Your registration has been successfully withdrawn from the Secretariat database.",
+            "Registration Withdrawn"
+        );
+
+    } catch (err) {
+
+        console.error("Withdrawal error:", err);
+
+        alertModal(
+            "Unable to process withdrawal request at this time.",
+            "System Error"
+        );
+    }
+}
+
+        // Toggle Admin secretariat authentication flow
+        function toggleAdminPanel() {
+            const overlay = document.getElementById('admin-overlay');
+            if (!overlay.classList.contains('hidden')) {
+                overlay.classList.add('hidden');
+                return;
+            }
+            
+            const loginModal = document.getElementById('admin-login-modal');
+            loginModal.classList.remove('hidden');
+            loginModal.classList.add('flex');
+            
+            const pinInput = document.getElementById('admin-passcode-input');
+            pinInput.value = '';
+            setTimeout(() => pinInput.focus(), 100);
+        }
+
+        function closeAdminLoginModal() {
+            const loginModal = document.getElementById('admin-login-modal');
+            loginModal.classList.add('hidden');
+            loginModal.classList.remove('flex');
+        }
+
+        function verifyAdminPasscode() {
+            const input = document.getElementById('admin-passcode-input').value;
+            
+            // Compares against loaded cloud passcode dynamically (No code inspection risks)
+            if (input === activeAdminPasscode) {
+                closeAdminLoginModal();
+                document.getElementById('admin-overlay').classList.remove('hidden');
+                switchAdminTab('applicants');
+                fetchDelegateList();
+            } else {
+                alertModal("The passcode you entered is incorrect. Access denied.", "Passcode Rejected");
+            }
+        }
+
+        // Switching panel layouts beautifully
+        function switchAdminTab(tabName) {
+            const appTab = document.getElementById('tab-applicants-content');
+            const secTab = document.getElementById('tab-security-content');
+            const appBtn = document.getElementById('tab-applicants-btn');
+            const secBtn = document.getElementById('tab-security-btn');
+
+            if (tabName === 'applicants') {
+                appTab.classList.remove('hidden');
+                secTab.classList.add('hidden');
+                appBtn.className = "px-5 py-2.5 border-b-2 border-[#e2b659] text-[#e2b659] font-serif-heading text-sm font-semibold tracking-wider";
+                secBtn.className = "px-5 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-white font-serif-heading text-sm font-semibold tracking-wider transition-colors";
+            } else {
+                appTab.classList.add('hidden');
+                secTab.classList.remove('hidden');
+                secBtn.className = "px-5 py-2.5 border-b-2 border-[#e2b659] text-[#e2b659] font-serif-heading text-sm font-semibold tracking-wider";
+                appBtn.className = "px-5 py-2.5 border-b-2 border-transparent text-slate-400 hover:text-white font-serif-heading text-sm font-semibold tracking-wider transition-colors";
+            }
+        }
+
+        // Change password securely inside database or LocalStorage Fallback
+        async function saveNewAdminPasscode() {
+            const currentPass = document.getElementById('sec-current-passcode').value;
+            const newPass = document.getElementById('sec-new-passcode').value.trim();
+            const confirmPass = document.getElementById('sec-confirm-passcode').value.trim();
+
+            if (currentPass !== activeAdminPasscode) {
+                alertModal("The current passcode entered is incorrect. Authorization verification failed.", "Passcode Denied");
+                return;
+            }
+
+            if (!newPass || newPass.length < 6) {
+                alertModal("New passcode must be at least 6 characters in length for general data safety.", "Security Weakness");
+                return;
+            }
+
+            if (newPass !== confirmPass) {
+                alertModal("Passcode confirmation field mismatch. Please retype and confirm.", "Fields Do Not Match");
+                return;
+            }
+
+            try {
+                if (useSimulationMode) {
+                    localStorage.setItem('lamun26_admin_passcode', newPass);
+                } else {
+                    const adminRef = doc(db, 'artifacts', appId, 'public', 'data', 'config', 'admin');
+                    await setDoc(adminRef, { passcode: newPass });
+                }
+
+                activeAdminPasscode = newPass;
+                
+                // Reset inputs and notify
+                document.getElementById('sec-current-passcode').value = '';
+                document.getElementById('sec-new-passcode').value = '';
+                document.getElementById('sec-confirm-passcode').value = '';
+
+                // If updated successfully, remove help hints
+                document.getElementById('first-time-prompt').classList.add('hidden');
+
+                alertModal("Your Secretariat Coordinator passcode was successfully updated in our database registries.", "Security Verified");
+                switchAdminTab('applicants');
+            } catch (err) {
+                console.error("Passcode update failure:", err);
+                alertModal("Network write failed. Secure credentials cannot be written at this time.", "Transaction Interrupted");
+            }
+        }
+
+        // Retrieve and load applicants securely inside table
+        async function fetchDelegateList() {
+            const tbody = document.getElementById('admin-table-body');
+            tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500 font-serif-body italic">Updating database links...</td></tr>`;
+
+            if (!currentUser) return;
+
+            try {
+                let list = [];
+                if (useSimulationMode) {
+                    await new Promise(res => setTimeout(res, 300));
+                    list = localSimulatedDb.getDocs();
+                } else {
+                    const querySnapshot = await getDocs(collection(db, 'artifacts', appId, 'public', 'data', 'registrations'));
+                    querySnapshot.forEach((docSnap) => {
+                        list.push({ uid: docSnap.id, ...docSnap.data() });
+                    });
+                }
+
+                tbody.innerHTML = '';
+                
+                if (list.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-slate-500 font-serif-body italic">No registrations logged in the cloud yet.</td></tr>`;
+                    return;
+                }
+
+                // Global secure mapping (protecting quote strings)
+                window.allDelegates = {};
+                list.forEach((data) => {
+                    const id = data.uid;
+                    window.allDelegates[id] = data;
+
+                    const tr = document.createElement('tr');
+                    tr.className = "border-b border-[#e2b659]/10 hover:bg-[#e2b659]/5 transition-colors";
+                    
+                    tr.innerHTML = `
+                        <td class="py-4 pr-2">
+                            <div class="font-semibold text-white font-serif-heading tracking-wide">${data.name || 'Anonymous'}</div>
+                            <div class="text-[10px] text-slate-500">${data.email || ''} • ${data.school || ''}</div>
+                        </td>
+                        <td class="py-4 font-serif-body text-slate-400 text-xs">${data.experience || 'Beginner'}</td>
+                        <td class="py-4 text-slate-400 text-xs">${data.committeeName || 'Pending'}</td>
+                        <td class="py-4 font-mono text-[#e2b659] text-xs">${data.country || 'Not Assigned'}</td>
+                        <td class="py-4">
+                            <span class="px-2 py-0.5 rounded-sm text-[10px] font-bold ${data.status === 'ALLOCATED' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">
+                                ${data.status || 'APPLIED'}
+                            </span>
+                        </td>
+                        <td class="py-4 text-right">
+                            <button onclick="openAllocationModal('${id}')" class="bg-[#e2b659]/10 border border-[#e2b659]/20 text-[#e2b659] hover:bg-[#e2b659] hover:text-[#050b14] px-4 py-1.5 rounded-sm text-xs font-serif-heading font-semibold transition-all duration-300">
+                                Review & Allocate
+                            </button>
+                        </td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } catch (err) {
+                console.error("Database read error:", err);
+                tbody.innerHTML = `<tr><td colspan="6" class="py-8 text-center text-red-400 font-serif-body italic">Cloud fetch error. Check configuration rules.</td></tr>`;
+            }
+        }
+
+        // Open detailed view of applicant form
+        function openAllocationModal(uid) {
+            const data = window.allDelegates[uid];
+            if (!data) return;
+
+            // Load full details securely inside Modal
+            document.getElementById('edit-delegate-id').value = uid;
+            document.getElementById('edit-delegate-name').textContent = data.name;
+            document.getElementById('review-email').textContent = data.email || "No Email Provided";
+            document.getElementById('review-email').href = data.email ? `mailto:${data.email}` : "#";
+            document.getElementById('review-school').textContent = data.school || "Not Specified";
+            document.getElementById('review-pref-committee').textContent = data.committeeName || "No Preferred Council Listed";
+            document.getElementById('review-pref-country').textContent = data.country || "Not Specified";
+            document.getElementById('review-experience').textContent = data.experience || "Beginner";
+            document.getElementById('review-statement').textContent = data.statement || "No written essay or motivation statement submitted.";
+
+            // Populate input allocation fields
+            document.getElementById('edit-delegate-committee').value = data.committeeName || "UN General Assembly (Surface Currents)";
+            document.getElementById('edit-delegate-country').value = data.country || "";
+            document.getElementById('edit-delegate-status').value = data.status || "APPLIED";
+
+            const modal = document.getElementById('allocation-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAllocationModal() {
+            const modal = document.getElementById('allocation-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        async function saveDelegateAllocation() {
+            const uid = document.getElementById('edit-delegate-id').value;
+            const committee = document.getElementById('edit-delegate-committee').value;
+            const country = document.getElementById('edit-delegate-country').value.trim();
+            const status = document.getElementById('edit-delegate-status').value;
+
+            try {
+                if (useSimulationMode) {
+                    const data = window.allDelegates[uid];
+                    if (data) {
+                        const updatedData = { ...data, committeeName: committee, country, status };
+                        localSimulatedDb.updateDoc(uid, updatedData);
+                        localSimulatedDb.setDoc('lamun_reg_' + uid, updatedData);
+                        
+                        if (uid === currentUser.uid) {
+                            delegateProfile = updatedData;
+                            updateUIForRegisteredUser();
+                        }
+                    }
+                } else {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'registrations', uid);
+                    const docSnap = await getDoc(docRef);
+                    if (docSnap.exists()) {
+                        const updatedData = { ...docSnap.data(), committeeName: committee, country, status };
+                        await setDoc(docRef, updatedData);
+                        
+                        if (uid === currentUser.uid) {
+                            delegateProfile = updatedData;
+                            updateUIForRegisteredUser();
+                        }
+                    }
+                }
+
+                closeAllocationModal();
+                alertModal("Delegate credentials and decisions successfully recorded.", "Allocation Approved");
+                fetchDelegateList();
+            } catch (err) {
+                console.error("Allocation Update error:", err);
+                alertModal("Could not commit updates to database. Ensure permissions are set.", "Update Refused");
+            }
+        }
+
+        function alertModal(message, title = "System Message") {
+            const modal = document.getElementById('custom-alert-modal');
+            document.getElementById('custom-alert-title').textContent = title;
+            document.getElementById('custom-alert-message').textContent = message;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeAlertModal() {
+            const modal = document.getElementById('custom-alert-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Exposing modular control methods securely to global window space
+        window.openRegistrationModal = openRegistrationModal;
+        window.closeRegistrationModal = closeRegistrationModal;
+        window.nextRegStep = nextRegStep;
+        window.handleRegistrationSubmit = handleRegistrationSubmit;
+        window.viewDelegatePortal = viewDelegatePortal;
+        window.closePortalOverlay = closePortalOverlay;
+        window.closeAlertModal = closeAlertModal;
+        window.alertModal = alertModal;
+        window.toggleAdminPanel = toggleAdminPanel;
+        window.closeAdminLoginModal = closeAdminLoginModal;
+        window.verifyAdminPasscode = verifyAdminPasscode;
+        window.fetchDelegateList = fetchDelegateList;
+        window.openAllocationModal = openAllocationModal;
+        window.closeAllocationModal = closeAllocationModal;
+        window.saveDelegateAllocation = saveDelegateAllocation;
+        window.switchAdminTab = switchAdminTab;
+        window.saveNewAdminPasscode = saveNewAdminPasscode;
+        window.withdrawRegistration = withdrawRegistration;
+
+        // Initialize Authentication & Fallbacks
+        initAuth();
+    </script>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const handleScroll = () => {
+            if (window.scrollY > 50) {
+                navbar.classList.remove('bg-transparent', 'py-5');
+                navbar.classList.add('bg-[#050b14]/90', 'backdrop-blur-md', 'border-b', 'border-[#e2b659]/20', 'py-3');
+            } else {
+                navbar.classList.add('bg-transparent', 'py-5');
+                navbar.classList.remove('bg-[#050b14]/90', 'backdrop-blur-md', 'border-b', 'border-[#e2b659]/20', 'py-3');
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        handleScroll();
+
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const xIcon = document.getElementById('x-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        const toggleMenu = () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            menuIcon.classList.toggle('hidden');
+            xIcon.classList.toggle('hidden');
+        };
+
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    toggleMenu();
+                }
             });
-        }
-
-        // Formspree Layout Overlay Controllers
-        function resetContactForm() {
-            document.getElementById('form-success-overlay').classList.add('hidden');
-            playChimeEffect(440, "sine", 0.1);
-        }
-
-        function closeErrorOverlay() {
-            document.getElementById('form-error-overlay').classList.add('hidden');
-            playChimeEffect(440, "sine", 0.1);
-        }
+        });
     </script>
 </body>
-</html>
 </html>
