@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư Chia Tay & Video Lớp Học</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Thư viện phông chữ hỗ trợ tiếng Việt hoàn chỉnh -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Playfair+Display:ital,wght=0,400;0,700;1,400&display=swap&subset=vietnamese" rel="stylesheet">
+    <!-- Canvas Confetti CDN cho hiệu ứng pháo hoa giấy chúc mừng -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        /* Thiết lập phông chữ tùy chỉnh */
+        .font-handwriting { font-family: 'Dancing Script', cursive; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+
+        /* Vị trí mặc định của phong bì ở giữa màn hình */
+        .envelope-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1) rotate(0deg);
+            opacity: 1;
+            z-index: 40;
+            cursor: pointer;
+            transition: opacity 0.5s ease;
+        }
+        
+        /* Trạng thái bay vào lúc khởi động */
+        .envelope-wrapper.fly-in {
+            animation: flyInAnimation 2.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+        @keyframes flyInAnimation {
+            0% { transform: translate(-50%, 100vh) scale(0.2) rotate(-30deg); opacity: 0; }
+            60% { transform: translate(-50%, -55%) scale(1.1) rotate(5deg); opacity: 1; }
+            100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        /* Hiệu ứng nhịp tim bay l lửng */
+        .envelope-wrapper.pulse {
+            animation: pulse-hover 2.5s infinite ease-in-out;
+        }
+        @keyframes pulse-hover {
+            0%, 100% { transform: translate(-50%, -50%) scale(1) translateY(0px); }
+            50% { transform: translate(-50%, -50%) scale(1.05) translateY(-10px); }
+        }
+
+        /* Hiệu ứng mở bao thư và biến mất */
+        .envelope-wrapper.open-transition {
+            animation: openLetter 1.2s ease-in forwards;
+        }
+        @keyframes openLetter {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 1; filter: blur(0px); }
+            50% { transform: translate(-50%, -50%) scale(1.4); opacity: 0.5; filter: blur(4px); }
+            100% { transform: translate(-50%, -50%) scale(2.5); opacity: 0; filter: blur(12px); pointer-events: none; }
+        }
+
+        /* Hiệu ứng phong bì bay đi mất ở cuối */
+        .envelope-wrapper.fly-away {
+            animation: flyAwayAnimation 2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards;
+        }
+        @keyframes flyAwayAnimation {
+            0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 1; filter: blur(0px); }
+            25% { transform: translate(-50%, -40%) scale(1.05) rotate(-5deg); opacity: 1; }
+            100% { transform: translate(150vw, -150vh) scale(0.1) rotate(45deg); opacity: 0; filter: blur(6px); }
+        }
+
+        /* Giao diện bức thư trượt lên */
+        .paper-reveal {
+            opacity: 0;
+            transform: translateY(80px) scale(0.95);
+            transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .paper-reveal.show {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .paper-reveal.hide {
+            opacity: 0;
+            transform: translateY(100vh) scale(0.9);
+            transition: all 1.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+        }
+
+        /* Con trỏ nhấp nháy khi máy chữ đang gõ */
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-end infinite;
+            color: #4b5563;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        /* Hiệu ứng nền giấy giả cổ */
+        .paper-bg {
+            background-color: #fdfbf7;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), inset 0 0 60px rgba(230, 220, 200, 0.4);
+        }
+
+        /* Thanh cuộn tùy chỉnh cho bức thư */
+        #paper::-webkit-scrollbar {
+            width: 8px;
+        }
+        #paper::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        #paper::-webkit-scrollbar-thumb {
+            background-color: rgba(139, 92, 26, 0.2);
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body class="bg-gray-950 text-white overflow-hidden h-screen w-screen flex items-center justify-center m-0 p-0 selection:bg-amber-200 selection:text-amber-900">
+
+    <!-- HIỆU ỨNG ÁNH SÁNG NỀN -->
+    <div class="absolute inset-0 bg-radial-dark opacity-40 pointer-events-none"></div>
+
+    <!-- PHONG BÌ TƯƠNG TÁC -->
+    <div id="envelope-container" class="envelope-wrapper hidden flex flex-col items-center group">
+        <!-- SVG Graphic phong bì thư -->
+        <svg class="w-72 h-52 md:w-96 md:h-64 drop-shadow-[0_25px_25px_rgba(0,0,0,0.5)]" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Mặt sau của phong bì -->
+            <rect x="10" y="10" width="280" height="180" rx="8" fill="#FDE68A" />
+            <!-- Bóng đổ phía trong nắp -->
+            <path d="M10 10 L150 110 L290 10 Z" fill="#D97706" opacity="0.15"/>
+            <!-- Giấy lấp ló khi di chuột vào -->
+            <rect id="envelope-paper-peek" x="25" y="5" width="250" height="180" fill="#FFFFFF" class="transition-transform duration-500 group-hover:-translate-y-6"/>
+            <!-- Gấp nếp dưới -->
+            <path d="M10 190 L150 110 L290 190 Z" fill="#FCD34D" stroke="#FBBF24" stroke-width="2"/>
+            <!-- Gấp nếp trái -->
+            <path d="M10 10 L150 110 L10 190 Z" fill="#FBE18D"/>
+            <!-- Gấp nếp phải -->
+            <path d="M290 10 L150 110 L290 190 Z" fill="#FBE18D"/>
+            <!-- Nắp phong bì (Xoay mở ra) -->
+            <path id="envelope-flap" d="M10 10 L150 110 L290 10 Z" fill="#FBBF24" stroke="#F59E0B" stroke-width="2" class="origin-top transition-transform duration-700"/>
+            <!-- Dấu niêm phong sáp đỏ -->
+            <circle id="wax-seal" cx="150" cy="110" r="22" fill="#991B1B" class="drop-shadow-md"/>
+            <path id="wax-seal-detail" d="M142 105 L150 115 L158 105" stroke="#FCA5A5" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+        <p id="envelope-hint" class="mt-8 text-amber-200/90 font-serif italic text-lg tracking-widest animate-pulse select-none">Mở Thư</p>
+    </div>
+
+    <!-- KHUNG CHỨA BỨC THƯ CHÍNH (Hiện ra sau khi mở bao thư) -->
+    <div id="letter-container" class="hidden absolute inset-0 z-30 flex items-center justify-center p-4 sm:p-8 backdrop-blur-md bg-black/60">
+        <div id="paper" class="paper-reveal paper-bg w-full max-w-3xl max-h-[85vh] overflow-y-auto rounded-xl text-gray-800 p-6 sm:p-10 md:p-14 relative flex flex-col justify-between cursor-pointer" title="Nhấp vào đây để xem toàn bộ bức thư nhanh hơn">
+            
+            <div>
+                <!-- Tem thư cổ điển trang trí ở góc -->
+                <div class="absolute top-6 right-6 border-4 border-red-800/30 w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center opacity-60 transform rotate-12 select-none pointer-events-none">
+                    <span class="text-red-800/60 font-serif font-bold tracking-widest uppercase text-[9px] sm:text-xs text-center leading-tight">Niên khóa<br>2026</span>
+                </div>
+
+                <!-- Lời chào đầu thư -->
+                <h2 id="letter-salutation" class="font-handwriting text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 mb-6"></h2>
+                
+                <!-- Nội dung bức thư gõ máy chữ -->
+                <div id="letter-body" class="font-handwriting text-2xl sm:text-3xl md:text-4xl leading-relaxed text-gray-700 whitespace-pre-wrap"></div>
+            </div>
+
+            <!-- Gợi ý nhấp để đọc nhanh -->
+            <div id="skip-hint" class="text-right text-gray-400 text-xs sm:text-sm font-serif italic mt-6 mb-2 opacity-75 hover:opacity-100 transition-opacity">
+                (Nhấn vào bất kỳ đâu trên bức thư để bỏ qua quá trình gõ chữ)
+            </div>
+
+            <!-- Nút bấm chuyển tiếp xem video -->
+            <div id="action-btn-container" class="mt-8 text-center hidden opacity-0 transition-opacity duration-1000">
+                <button id="send-off-btn" class="px-8 py-3 bg-amber-700 hover:bg-amber-800 text-white font-serif text-lg tracking-wide rounded-full shadow-lg hover:shadow-xl active:scale-95 transition-all duration-300">
+                   Xem Video ✉️
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- KHUNG PHÁT VIDEO CHUNG CUỘC -->
+    <div id="video-container" class="hidden absolute inset-0 z-50 flex flex-col items-center justify-center p-4 md:p-8 bg-gray-950/95 backdrop-blur-lg opacity-0 transition-opacity duration-1500">
+        <div class="w-full max-w-4xl bg-gray-900 rounded-2xl overflow-hidden shadow-[0_25px_50px_-12px_rgba(0,0,0,0.8)] border border-gray-800">
+            <!-- Thanh tiêu đề của trình phát video -->
+            <div class="bg-gray-900/80 px-6 py-4 border-b border-gray-800 flex items-center justify-between">
+                <span class="font-serif text-lg md:text-xl text-amber-100 tracking-wide">Video Kỷ Niệm Của Chúng Ta</span>
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+            </div>
+            
+            <!-- Trình phát nhúng video tỉ lệ màn hình chuẩn -->
+            <div class="relative w-full aspect-video bg-black">
+                <iframe id="video-iframe" class="absolute inset-0 w-full h-full" src="" title="Video Kỷ Niệm Lớp" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
+        
+        
+    </div>
+
+    <script>
+        /**
+         * ==========================================
+         * 📝 CHỈNH SỬA THÔNG TIN CỦA THẦY/CÔ TẠI ĐÂY
+         * ==========================================
+         */
+        const CONFIG = {
+            // Đường link nhúng video YouTube với cấu hình tự động chạy
+            videoUrl: 'https://www.youtube.com/embed/zvNBWCjpTZ8?si=DpXJzZaI8t40kgP-&autoplay=1', 
+            
+            // Lời chào mở đầu bức thư
+            salutation: "Chào những người bạn đất 36,",
+
+            // Lời nhắn gửi cuối cùng của Thầy/Cô. Có thể sử dụng \n để xuống dòng.
+            message: "Ủa vậy là hết cấp 2 thiệt hả trời =)))))) Giang mới nhớ ngày nào Đăng Khoa ghi Kthy trong vở nháp, Linh bị ghép với Huy, Hiển 3,5 Hóa, Đức Phong tặng hoa cho ai đó, blem blem,...và cô Lệ còn dạy mình mà... Giang cũng sẽ nhớ mãi cái lớp quái quỷ này mà không bao giờ vượt qua được thứ hạng 36. Rồi cũng đến ngày chúng ta phải rời xa nhau. 4 năm cấp 2 trôi nhanh thật. Tạm biệt những người bạn của tôi. Những ai chưa biết thì Giang yêu thương mn rất nhiều, có trù thì cũng bỏ qua. Tạm biệt An, Tr Bình, Đức Bình, Minh Châu, Khánh Châu, Bảo Chi, Khánh Chi,Trí Dũng, Thùy Dương, Quốc Đạt, Xuận Đồng, Hiển, Quang Huy, Đức Huy, Gia Hưng, Phước Khang, Gia khánh, Đăng Khoa, Lâm Khoa, Kiệt, Yến Linh, Phương Linh, Nguyệt Mai, Huy Mạnh, Lê Minh, Nguyễn Minh, Nguyễn Nhi, Trịnh Nhi, Ngọc Phát, Đức Phong, Xuân Phong, An Phước, Hà Thu Phương, Lê Thu Phương, Minh Phương, Thanh Phương, Anh Quân, Gia Quyền, Minh Sang, Minh Tâm, Tuấn Thành, Thúy, Khánh Vân, Thảo Vân, Quang Vinh. Sau này có thể mỗi người một hướng, một cuộc sống khác nhau. Nhưng mong rằng khi nhớ về quãng thời gian ấy, chúng ta vẫn sẽ mỉm cười vì đã từng là thanh xuân của nhau. Chúc mọi người thi đạt được kết quả tốt nhất nhé! Trân Trọng.",
+            
+           // Tốc độ đánh máy của chữ (mili-giây trên mỗi ký tự)
+            typingSpeed: 35 
+        };
+
+        // DOM Elements
+        const envelopeContainer = document.getElementById('envelope-container');
+        const letterContainer = document.getElementById('letter-container');
+        const paper = document.getElementById('paper');
+        const letterSalutation = document.getElementById('letter-salutation');
+        const letterBody = document.getElementById('letter-body');
+        const flap = document.getElementById('envelope-flap');
+        const skipHint = document.getElementById('skip-hint');
+        const actionBtnContainer = document.getElementById('action-btn-container');
+        const sendOffBtn = document.getElementById('send-off-btn');
+        const videoContainer = document.getElementById('video-container');
+        const videoIframe = document.getElementById('video-iframe');
+
+        // Biến kiểm soát trạng thái gõ chữ
+        let isTyping = false;
+        let typingTimeout = null;
+
+        // Các hàm bắn pháo giấy chúc mừng (Confetti)
+        function triggerConfettiBurst() {
+            confetti({
+                particleCount: 80,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        }
+
+        function triggerConfettiDoubleCannon() {
+            const duration = 2 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 4,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0, y: 0.9 }
+                });
+                confetti({
+                    particleCount: 4,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1, y: 0.9 }
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        function triggerConfettiStorm() {
+            const end = Date.now() + (5 * 1000);
+            const colors = ['#f59e0b', '#d97706', '#ef4444', '#10b981', '#3b82f6'];
+
+            (function frame() {
+                confetti({
+                    particleCount: 2,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: colors
+                });
+                confetti({
+                    particleCount: 2,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: colors
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // 1. Kích hoạt hoạt cảnh phong bì bay vào lúc khởi tạo trang
+        function initializeEnvelope() {
+            envelopeContainer.classList.remove('hidden');
+            envelopeContainer.classList.add('fly-in');
+
+            // Chuyển sang hoạt cảnh bay lơ lửng sau khi kết thúc bay vào
+            setTimeout(() => {
+                envelopeContainer.classList.remove('fly-in');
+                envelopeContainer.classList.add('pulse');
+            }, 2200);
+        }
+
+        // 2. Mở phong bì thư khi người dùng nhấn chuột vào
+        envelopeContainer.addEventListener('click', function openAction() {
+            envelopeContainer.removeEventListener('click', openAction);
+            envelopeContainer.classList.remove('pulse'); 
+            
+            // Lật ngược nắp phong bì lên
+            flap.style.transform = 'rotateX(180deg)';
+
+            setTimeout(() => {
+                // Phong bì phóng to dần và mờ nhạt dần đi
+                envelopeContainer.classList.add('open-transition');
+                
+                setTimeout(() => {
+                    envelopeContainer.classList.add('hidden');
+                    startLetterSequence();
+                }, 1100);
+            }, 600);
+        });
+
+        // 3. Hiện trang thư giấy lên một cách mượt mà
+        function startLetterSequence() {
+            letterContainer.classList.remove('hidden');
+            
+            setTimeout(() => {
+                paper.classList.add('show');
+                
+                // Hiệu ứng pháo giấy tung bay khi mở thư thành công!
+                triggerConfettiBurst();
+                
+                // Bắt đầu quá trình gõ từng chữ
+                setTimeout(typeLetter, 1200);
+            }, 100);
+        }
+
+        // 4. Cơ chế máy chữ gõ từng ký tự
+        function typeLetter() {
+            letterSalutation.textContent = CONFIG.salutation;
+            letterBody.classList.add('typing-cursor');
+            isTyping = true;
+
+            let charIndex = 0;
+            const textContent = CONFIG.message;
+
+            function typeWriter() {
+                if (!isTyping) return; // Dừng lại nếu người dùng yêu cầu bỏ qua nhanh
+
+                if (charIndex < textContent.length) {
+                    letterBody.textContent += textContent.charAt(charIndex);
+                    charIndex++;
+                    
+                    // Tự động cuộn khung giấy xuống dưới liên tục khi văn bản dài ra
+                    paper.scrollTop = paper.scrollHeight;
+                    typingTimeout = setTimeout(typeWriter, CONFIG.typingSpeed);
+                } else {
+                    finishTyping();
+                }
+            }
+
+            typeWriter();
+        }
+
+        // 4b. Nhấp chuột vào bất cứ đâu trên trang giấy để hiển thị toàn bộ chữ ngay lập tức
+        paper.addEventListener('click', (e) => {
+            // Đảm bảo không bắt nhầm sự kiện khi người dùng click vào nút xem video
+            if (e.target === sendOffBtn) return;
+
+            if (isTyping) {
+                isTyping = false;
+                clearTimeout(typingTimeout);
+                letterBody.textContent = CONFIG.message;
+                finishTyping();
+            }
+        });
+
+        // Hàm kết thúc hiệu ứng gõ chữ và chuẩn bị nút xem video
+        function finishTyping() {
+            isTyping = false;
+            letterBody.classList.remove('typing-cursor');
+            if (skipHint) {
+                skipHint.style.opacity = '0';
+                setTimeout(() => skipHint.remove(), 500);
+            }
+            
+            // Tung pháo giấy chúc mừng lớn từ hai bên màn hình!
+            triggerConfettiDoubleCannon();
+
+            // Hiển thị nút "Xem Video"
+            actionBtnContainer.classList.remove('hidden');
+            setTimeout(() => {
+                actionBtnContainer.classList.add('opacity-100');
+            }, 50);
+
+            // Tự động cuộn mượt mà xuống dưới cùng để lộ rõ nút bấm
+            setTimeout(() => {
+                paper.scrollTo({
+                    top: paper.scrollHeight,
+                    behavior: 'smooth'
+                });
+            }, 100);
+        }
+
+        // 5. Sự kiện nhấn nút xem video: Gấp thư lại, nhét vào bao, dán seal, phong bì bay đi, hiện video!
+        sendOffBtn.addEventListener('click', () => {
+            // Trượt hạ bức thư xuống dưới màn hình
+            paper.classList.remove('show');
+            paper.classList.add('hide');
+
+            setTimeout(() => {
+                // Ẩn lớp phủ bức thư đi
+                letterContainer.classList.add('hidden');
+
+                // Gọi lại phong bì trong trạng thái mở nắp để thu lại bức thư
+                const paperPeek = document.getElementById('envelope-paper-peek');
+                const envelopeHint = document.getElementById('envelope-hint');
+                const waxSeal = document.getElementById('wax-seal');
+                const waxSealDetail = document.getElementById('wax-seal-detail');
+
+                // Thay đổi thông báo trạng thái
+                envelopeHint.textContent = "Đợi tí";
+                envelopeHint.classList.remove('animate-pulse');
+                
+                // Khôi phục phong bì về vị trí trung tâm
+                envelopeContainer.classList.remove('hidden', 'open-transition');
+                envelopeContainer.style.transform = 'translate(-50%, -50%) scale(1) rotate(0deg)';
+                envelopeContainer.style.opacity = '1';
+
+                // Trượt lá thư thụt xuống lòng bao thư
+                setTimeout(() => {
+                    paperPeek.style.transform = 'translateY(150px)'; 
+
+                    // Đóng nắp phong bì lại và gắn con dấu mới tinh khôi
+                    setTimeout(() => {
+                        flap.style.transform = 'rotateX(0deg)';
+                        waxSeal.style.fill = '#b91c1c'; 
+                        
+                        // Kích hoạt bay xa mất hút!
+                        setTimeout(() => {
+                            envelopeHint.textContent = "Lẹt Gâu!";
+                            envelopeContainer.classList.add('fly-away');
+
+                            // Sau khi phong bì biến mất hoàn toàn, hiện trình phát video
+                            setTimeout(() => {
+                                envelopeContainer.classList.add('hidden');
+                                revealVideo();
+                            }, 1800);
+
+                        }, 1200);
+
+                    }, 800);
+
+                }, 500);
+
+            }, 1500);
+        });
+
+        // 6. Hiển thị trình phát Video với hiệu ứng pháo giấy liên tục
+        function revealVideo() {
+            // Truyền đường link video Youtube vào iframe
+            videoIframe.src = CONFIG.videoUrl;
+
+            videoContainer.classList.remove('hidden');
+            setTimeout(() => {
+                videoContainer.classList.add('opacity-100');
+                
+                // Tạo một cơn bão mưa pháo giấy chúc mừng xung quanh màn hình video!
+                triggerConfettiStorm();
+            }, 100);
+        }
+
+        // Khởi động chuỗi hoạt cảnh ngay khi tải trang xong
+        window.addEventListener('DOMContentLoaded', initializeEnvelope);
+    </script>
+</body>
+</html>
